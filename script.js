@@ -61,9 +61,7 @@ function initializeEventListeners() {
     });
     
     // Input formatting
-    nationalIdInput.addEventListener('input', formatNationalId);
-    phoneInput.addEventListener('input', formatPhone);
-    
+ 
     // Copy account number functionality
     window.copyAccountNumber = copyAccountNumber;
     window.removeFile = removeFile;
@@ -139,7 +137,7 @@ function validateNationalId(nationalId) {
 // Validate phone number
 function validatePhone(phone) {
     const cleanPhone = phone.replace(/\s/g, '');
-    return /^(05|5)\d{8}$/.test(cleanPhone);
+    return /^05\d{7}$/.test(cleanPhone);
 }
 
 // Format national ID input
@@ -147,11 +145,6 @@ function formatNationalId(e) {
     let value = e.target.value.replace(/\D/g, '');
     if (value.length > 10) {
         value = value.substring(0, 10);
-    }
-    
-    // Add spaces for better readability
-    if (value.length > 0) {
-        value = value.replace(/(\d{4})(\d{4})(\d{2})/, '$1 $2 $3');
     }
     
     e.target.value = value;
@@ -169,14 +162,8 @@ function formatPhone(e) {
             value = '05' + value;
         }
     }
-    
     if (value.length > 10) {
         value = value.substring(0, 10);
-    }
-    
-    // Add spaces for better readability
-    if (value.length > 2) {
-        value = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
     }
     
     e.target.value = value;
