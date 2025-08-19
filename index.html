@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة التحويل الداخلي - جامعة شقراء</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <img src="logo.jpg" alt="Shaqra University Logo" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="university-info">
+                        <h1>جامعة شقراء</h1>
+                        <p>Shaqra University</p>
+                    </div>
+                </div>
+                <div class="header-title">
+                    <h2>بوابة التحويل الداخلي</h2>
+                    <p>Internal Transfer Portal</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Step 1: Search Form -->
+            <section id="search-section" class="section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-search"></i> الاستعلام عن طلب التحويل</h3>
+                        <p>يرجى إدخال البيانات التالية للاستعلام عن طلب التحويل الداخلي</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="search-form" class="form">
+                            <div class="form-group">
+                                <label for="national-id">رقم الهوية الوطنية</label>
+                                <input type="text" id="national-id" name="national-id" placeholder="أدخل رقم الهوية الوطنية" required>
+                                <i class="fas fa-id-card input-icon"></i>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">رقم الهاتف</label>
+                                <input type="tel" id="phone" name="phone" placeholder="أدخل رقم الهاتف" required>
+                                <i class="fas fa-phone input-icon"></i>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                البحث عن الطلب
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Application Details -->
+            <section id="details-section" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-alt"></i> تفاصيل طلب التحويل</h3>
+                        <div class="status-badge status-approved">
+                            <i class="fas fa-check-circle"></i>
+                            مقبول
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="student-info">
+                            <div class="info-row">
+                                <span class="label">اسم الطالبة:</span>
+                                <span class="value">سديم عمر العصيمي</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">رقم الهوية:</span>
+                                <span class="value">1137739155</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">رقم الهاتف:</span>
+                                <span class="value">053728850</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">التخصص المطلوب:</span>
+                                <span class="value">إدارة مالية - شقراء الدوادمي</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">حالة الطلب:</span>
+                                <span class="value status-text">مقبول ✓</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="confirm-btn" class="btn btn-success">
+                                <i class="fas fa-check"></i>
+                                تأكيد الطلب
+                            </button>
+                            <button id="back-search-btn" class="btn btn-secondary">
+                                <i class="fas fa-arrow-right"></i>
+                                العودة للبحث
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Confirmation -->
+            <section id="confirmation-section" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-check-circle"></i> تأكيد قبول الطلب</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="success-message">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>تم تأكيد طلب التحويل بنجاح</h4>
+                            <p>تهانينا! تم قبول طلب التحويل الداخلي الخاص بك إلى تخصص إدارة مالية - شقراء الدوادمي</p>
+                        </div>
+                        <div class="next-steps">
+                            <h5>الخطوات التالية:</h5>
+                            <ul>
+                                <li>سداد رسوم تسجيل المقررات (500 ريال سعودي)</li>
+                                <li>رفع إيصال السداد</li>
+                                <li>انتظار التأكيد النهائي</li>
+                            </ul>
+                        </div>
+                        <button id="proceed-payment-btn" class="btn btn-primary">
+                            <i class="fas fa-credit-card"></i>
+                            الانتقال للسداد
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Payment -->
+            <section id="payment-section" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-credit-card"></i> سداد رسوم التسجيل</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="payment-amount">
+                            <h4>المبلغ المطلوب: <span class="amount">500 ريال سعودي</span></h4>
+                            <p>رسوم تسجيل المقررات</p>
+                        </div>
+                        
+                        <div class="bank-details">
+                            <h5><i class="fas fa-university"></i> بيانات الحساب البنكي</h5>
+                            <div class="bank-info">
+                                <div class="bank-row">
+                                    <span class="label">اسم البنك:</span>
+                                    <span class="value">البنك السعودي الأول</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="label">رقم الحساب:</span>
+                                    <span class="value account-number">SA0745000000018516153001</span>
+                                    <button class="copy-btn" onclick="copyAccountNumber()">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="label">اسم المستفيد:</span>
+                                    <span class="value">الشؤون المالية - جامعة شقراء</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-instructions">
+                            <h5><i class="fas fa-info-circle"></i> تعليمات السداد</h5>
+                            <ol>
+                                <li>قم بتحويل المبلغ المطلوب (500 ريال) إلى الحساب المذكور أعلاه</li>
+                                <li>احتفظ بإيصال التحويل</li>
+                                <li>قم برفع صورة من إيصال السداد في الخطوة التالية</li>
+                                <li>تأكد من وضوح جميع البيانات في الإيصال</li>
+                            </ol>
+                        </div>
+
+                        <button id="upload-receipt-btn" class="btn btn-primary">
+                            <i class="fas fa-upload"></i>
+                            رفع إيصال السداد
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: Upload Receipt -->
+            <section id="upload-section" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-upload"></i> رفع إيصال السداد</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h4>اسحب وأفلت الإيصال هنا</h4>
+                                <p>أو انقر للاختيار من الجهاز</p>
+                                <input type="file" id="receipt-file" accept="image/*,.pdf" hidden>
+                                <button type="button" class="btn btn-outline" onclick="document.getElementById('receipt-file').click()">
+                                    اختيار ملف
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="file-preview" class="file-preview" style="display: none;">
+                            <div class="preview-header">
+                                <h5>معاينة الإيصال</h5>
+                                <button class="remove-file" onclick="removeFile()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="preview-content">
+                                <img id="preview-image" src="" alt="معاينة الإيصال">
+                            </div>
+                        </div>
+
+                        <div class="upload-requirements">
+                            <h5><i class="fas fa-exclamation-triangle"></i> متطلبات الملف</h5>
+                            <ul>
+                                <li>صيغة الملف: JPG, PNG, أو PDF</li>
+                                <li>حجم الملف: أقل من 5 ميجابايت</li>
+                                <li>يجب أن يكون الإيصال واضحاً ومقروءاً</li>
+                                <li>يجب أن يحتوي على جميع البيانات المطلوبة</li>
+                            </ul>
+                        </div>
+
+                        <button id="submit-receipt-btn" class="btn btn-success" disabled>
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الإيصال
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: Final Confirmation -->
+            <section id="final-section" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-check-double"></i> تأكيد الإرسال</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="final-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>تم إرسال إيصال السداد بنجاح</h4>
+                            <p>شكراً لك! تم استلام إيصال السداد وسيتم مراجعته خلال 24-48 ساعة</p>
+                        </div>
+                        
+                        <div class="reference-info">
+                            <h5>رقم المرجع</h5>
+                            <div class="reference-number">TR-2025-001234</div>
+                            <p>احتفظ بهذا الرقم للمتابعة</p>
+                        </div>
+
+                        <div class="next-instructions">
+                            <h5>التعليمات التالية:</h5>
+                            <ul>
+                                <li>ستتلقى رسالة نصية عند الموافقة على الإيصال</li>
+                                <li>يمكنك متابعة حالة الطلب من خلال البوابة الإلكترونية</li>
+                                <li>في حالة وجود أي استفسار، يرجى التواصل مع عمادة القبول والتسجيل</li>
+                            </ul>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button id="new-search-btn" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                استعلام جديد
+                            </button>
+                            <button class="btn btn-secondary" onclick="window.print()">
+                                <i class="fas fa-print"></i>
+                                طباعة التأكيد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>جامعة شقراء</h4>
+                    <p>المملكة العربية السعودية</p>
+                </div>
+                <div class="footer-section">
+                    <h4>التواصل</h4>
+                    <p>هاتف: 011-722-8000</p>
+                    <p>البريد الإلكتروني: info@su.edu.sa</p>
+                </div>
+                <div class="footer-section">
+                    <h4>الدعم التقني</h4>
+                    <p>للمساعدة والدعم التقني</p>
+                    <p>support@su.edu.sa</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 جامعة شقراء. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
