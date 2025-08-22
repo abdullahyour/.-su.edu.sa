@@ -1,7 +1,7 @@
 // Student data for validation
 const studentData = {
     nationalId: '1137739155',
-    phone: '053728850',
+    phone: '0537288590',
     name: 'سديم عمر العصيمي',
     major: 'إدارة مالية - شقراء الدوادمي',
     status: 'مقبول'
