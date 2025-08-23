@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الطالب الأكاديمية - جامعة شقراء</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="logo.jpg" alt="شعار جامعة شقراء" class="logo">
+                    <div class="university-info">
+                        <h1>جامعة شقراء</h1>
+                        <p>بوابة الطالب الأكاديمية</p>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-details">
+                        <h3 id="student-name">سديم عمر العصيمي</h3>
+                        <p id="student-id">1137739155</p>
+                    </div>
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="profile">
+                    <i class="fas fa-user"></i>
+                    <span>الملف الشخصي</span>
+                </li>
+                <li class="nav-item" data-tab="registration">
+                    <i class="fas fa-book"></i>
+                    <span>تسجيل المقررات</span>
+                </li>
+                <li class="nav-item" data-tab="schedule">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>الجدول الدراسي</span>
+                </li>
+                <li class="nav-item" data-tab="#">
+                    <i class="fas fa-chart-line"></i>
+                    <span>الدرجات</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Profile Tab -->
+            <div id="profile" class="tab-content active">
+                <div class="page-header">
+                    <h2><i class="fas fa-user"></i> الملف الشخصي</h2>
+                    <p>معلومات الطالبة الأكاديمية والشخصية</p>
+                </div>
+                
+                <div class="profile-grid">
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-id-card"></i> البيانات الشخصية</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <label>الاسم الكامل:</label>
+                                <span>سديم عمر العصيمي</span>
+                            </div>
+                            <div class="info-row">
+                                <label>رقم الهوية:</label>
+                                <span>1137739155</span>
+                            </div>
+                            <div class="info-row">
+                                <label>رقم الهاتف:</label>
+                                <span>0537288590</span>
+                            </div>
+                            <div class="info-row">
+                                <label>البريد الإلكتروني:</label>
+                                <span>sadeem.alosaimi@su.edu.sa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-graduation-cap"></i> البيانات الأكاديمية</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <label>التخصص:</label>
+                                <span>إدارة الأعمال (مسار الإدارة المالية) </span>
+                            </div>
+                            <div class="info-row">
+                                <label>الكلية:</label>
+                                <span>كلية العلوم والدراسات الإنسانيه بالدوادمي</span>
+                            </div>
+                            <div class="info-row">
+                                <label>المستوى الدراسي:</label>
+                                <span>السنة الثانية</span>
+                            </div>
+                            <div class="info-row">
+                                <label>الفصل الدراسي:</label>
+                                <span>الترم الثاني 1447هـ</span>
+                            </div>
+                            <div class="info-row">
+                                <label>المعدل التراكمي:</label>
+                                <span class="gpa"> </span>
+                            </div>
+                            <div class="info-row">
+                                <label>الساعات المكتسبة:</label>
+                                <span>36 ساعة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-exchange-alt"></i> معلومات التحويل</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <label>نوع التحويل:</label>
+                                <span class="transfer-type">تحويل داخلي</span>
+                            </div>
+                            <div class="info-row">
+                                <label>التخصص السابق:</label>
+                                <span>محاسبه</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <label>حالة التحويل:</label>
+                                <span class="status approved">مقبول</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Tab -->
+            <div id="registration" class="tab-content">
+                <div class="page-header">
+                    <h2><i class="fas fa-book"></i> تسجيل المقررات</h2>
+                    <p>تسجيل مقررات الترم الثاني - السنة الثانية</p>
+                </div>
+
+                <div class="registration-info">
+                    <div class="semester-info">
+                        <h3>معلومات الفصل الدراسي</h3>
+                        <div class="semester-details">
+                            <div class="detail-item">
+                                <label>الفصل الدراسي:</label>
+                                <span>الترم الثاني 1447هـ</span>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <label>الحد الأدنى للساعات:</label>
+                                <span>12 ساعة</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>الحد الأقصى للساعات:</label>
+                                <span>18 ساعة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="courses-section">
+                    <h3>المقررات المتاحة للتسجيل</h3>
+                    <div class="courses-grid" id="available-courses">
+                        <!-- سيتم ملء المقررات بواسطة JavaScript -->
+                    </div>
+                </div>
+
+                <div class="registered-courses">
+                    <h3>المقررات المسجلة</h3>
+                    <div class="registered-list" id="registered-courses">
+                        <div class="empty-state">
+                            <i class="fas fa-book-open"></i>
+                            <p>لم يتم تسجيل أي مقررات بعد</p>
+                        </div>
+                    </div>
+                    <div class="registration-summary">
+                        <div class="summary-item">
+                            <label>إجمالي الساعات المسجلة:</label>
+                            <span id="total-hours">0</span>
+                        </div>
+                        <button class="confirm-registration" id="confirm-btn" disabled>
+                            <i class="fas fa-check"></i>
+                            تأكيد التسجيل
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Tab -->
+            <div id="schedule" class="tab-content">
+                <div class="page-header">
+                    <h2><i class="fas fa-calendar-alt"></i> الجدول الدراسي</h2>
+                    <p>جدول المحاضرات والأنشطة الأكاديمية</p>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="schedule-header">
+                        <h3>الترم الثاني 1447هـ</h3>
+                        <div class="schedule-actions">
+                            <button class="btn-secondary">
+                                <i class="fas fa-print"></i>
+                                طباعة الجدول
+                            </button>
+                            <button class="btn-secondary">
+                                <i class="fas fa-download"></i>
+                                تحميل PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="schedule-table-container">
+                        <table class="schedule-table" id="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>الوقت</th>
+                                    <th>الأحد</th>
+                                    <th>الاثنين</th>
+                                    <th>الثلاثاء</th>
+                                    <th>الأربعاء</th>
+                                    <th>الخميس</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schedule-body">
+                                <!-- سيتم ملء الجدول بواسطة JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grades Tab -->
+            <div id="grades" class="tab-content">
+                <div class="page-header">
+                    <h2><i class="fas fa-chart-line"></i> الدرجات</h2>
+                    <p>درجات المقررات والمعدل التراكمي</p>
+                </div>
+
+                <div class="grades-summary">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>المعدل التراكمي</h3>
+                            <span class="gpa-value"></span>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>الساعات المكتسبة</h3>
+                            <span class="hours-value">36</span>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>المقررات المجتازة</h3>
+                            <span class="courses-value">12</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grades-table-container">
+                    <h3>درجات المقررات</h3>
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>رمز المقرر</th>
+                                <th>اسم المقرر</th>
+                                <th>الساعات</th>
+                                <th>الدرجة</th>
+                                <th>التقدير</th>
+                                <th>النقاط</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-body">
+                            <!-- سيتم ملء الدرجات بواسطة JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>جامعة شقراء</h4>
+                    <p>بوابة الطالب الأكاديمية</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط مهمة</h4>
+                    <ul>
+                        <li><a href="#">الموقع الرسمي للجامعة</a></li>
+                        <li><a href="#">نظام التعلم الإلكتروني</a></li>
+                        <li><a href="#">المكتبة الرقمية</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>الدعم الفني</h4>
+                    <p>البريد الإلكتروني: support@su.edu.sa</p>
+                    <p>الهاتف: 011-722-8000</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 جامعة شقراء. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

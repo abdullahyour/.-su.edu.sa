@@ -1,414 +1,554 @@
-// Student data for validation
+// بيانات الطالبة
 const studentData = {
-    nationalId: '1137739155',
-    phone: '0537288590',
     name: 'سديم عمر العصيمي',
-    major: 'إدارة مالية - شقراء الدوادمي',
-    status: 'مقبول'
+    id: '1137739155',
+    phone: '0537288590',
+    email: 'sadeem.alosaimi@su.edu.sa',
+    major: ' (مسار الإدارة المالية) إدارة الاعمال',
+    college: 'كلية العلوم والدراسات الإنسانية',
+    level: 'السنة الثانية',
+    semester: 'الترم الثاني 1447هـ',
+    gpa: 0,
+    completedHours: 36,
+    completedCourses: 12
 };
 
-// Application state
-let currentSection = 'search-section';
-let uploadedFile = null;
+// مقررات السنة الثانية - الترم الثاني
+const availableCourses = [
+    {
+        code: 'تسق 1301',
+        title: 'مبادئ التسويق',
+        hours: 3,
+        type: 'محاضرة (3)',
+        prerequisite: '',
+        schedule: [
+            { day: 'الأحد', time: '08:00-09:30', room: 'قاعة 101' },
+            { day: 'الثلاثاء', time: '08:00-09:30', room: 'قاعة 101' }
+        ],
+        description: 'مقدمة في مبادئ التسويق والمفاهيم الأساسية'
+    },
+    {
+        code: 'حسب 1301',
+        title: 'مبادئ المحاسبة المالية',
+        hours: 3,
+        type: 'محاضرة (2) + تمارين (1)',
+        prerequisite: '',
+        schedule: [
+            { day: 'الاثنين', time: '10:00-11:30', room: 'قاعة 102' },
+            { day: 'الأربعاء', time: '10:00-11:30', room: 'قاعة 102' }
+        ],
+        description: 'أساسيات المحاسبة المالية والقوائم المالية'
+    },
+    {
+        code: 'نجم 1301',
+        title: 'اللغة الإنجليزية',
+        hours: 3,
+        type: 'محاضرة (2) + عملي (2)',
+        prerequisite: '',
+        schedule: [
+            { day: 'الأحد', time: '12:00-13:30', room: 'مختبر اللغات' },
+            { day: 'الثلاثاء', time: '12:00-13:30', room: 'مختبر اللغات' }
+        ],
+        description: 'تطوير مهارات اللغة الإنجليزية للأعمال'
+    },
+    {
+        code: 'مال 1302',
+        title: 'رياضيات الأعمال',
+        hours: 3,
+        type: 'محاضرة (2) + تمارين (1)',
+        prerequisite: '',
+        schedule: [
+            { day: 'الاثنين', time: '14:00-15:30', room: 'قاعة 103' },
+            { day: 'الأربعاء', time: '14:00-15:30', room: 'قاعة 103' }
+        ],
+        description: 'الرياضيات التطبيقية في مجال الأعمال'
+    },
+    {
+        code: 'قصد 1303',
+        title: 'مبادئ الاقتصاد الجزئي',
+        hours: 3,
+        type: 'محاضرة (3)',
+        prerequisite: '',
+        schedule: [
+            { day: 'الأحد', time: '16:00-17:30', room: 'قاعة 104' },
+            { day: 'الثلاثاء', time: '16:00-17:30', room: 'قاعة 104' }
+        ],
+        description: 'مبادئ الاقتصاد الجزئي وسلوك المستهلك'
+    },
+    {
+        code: 'كمي 1304',
+        title: 'مبادئ الإحصاء في إدارة الأعمال',
+        hours: 3,
+        type: 'محاضرة (2) + تمارين (1)',
+        prerequisite: '',
+        schedule: [
+            { day: 'الاثنين', time: '08:00-09:30', room: 'قاعة 105' },
+            { day: 'الخميس', time: '08:00-09:30', room: 'قاعة 105' }
+        ],
+        description: 'الإحصاء التطبيقي في إدارة الأعمال'
+    }
+];
 
-// DOM elements
-const sections = document.querySelectorAll('.section');
-const searchForm = document.getElementById('search-form');
-const nationalIdInput = document.getElementById('national-id');
-const phoneInput = document.getElementById('phone');
-const confirmBtn = document.getElementById('confirm-btn');
-const backSearchBtn = document.getElementById('back-search-btn');
-const proceedPaymentBtn = document.getElementById('proceed-payment-btn');
-const uploadReceiptBtn = document.getElementById('upload-receipt-btn');
-const receiptFileInput = document.getElementById('receipt-file');
-const uploadArea = document.getElementById('upload-area');
-const filePreview = document.getElementById('file-preview');
-const previewImage = document.getElementById('preview-image');
-const submitReceiptBtn = document.getElementById('submit-receipt-btn');
-const newSearchBtn = document.getElementById('new-search-btn');
+// الدرجات السابقة
+const previousGrades = [
+    { code: 'عرب 1201', title: 'المهارات اللغوية', hours: 2, grade: 'أ', points: 4.0, gpa: 8.0 },
+    { code: 'نهج 1201', title: 'مهارات جامعية', hours: 2, grade: 'أ-', points: 3.7, gpa: 7.4 },
+    { code: 'سلم 1202', title: 'القيم الاجتماعية في الإسلام', hours: 2, grade: 'ب+', points: 3.3, gpa: 6.6 },
+    { code: 'تقن 1301', title: 'مهارات الحاسب الآلي', hours: 3, grade: 'أ', points: 4.0, gpa: 12.0 },
+    { code: 'دار 1301', title: 'مبادئ إدارة الأعمال', hours: 3, grade: 'أ-', points: 3.7, gpa: 11.1 },
+    { code: 'قنن 1301', title: 'القانون التجاري السعودي', hours: 3, grade: 'ب+', points: 3.3, gpa: 9.9 },
+    { code: 'مال 1301', title: 'أساسيات تمويل الأعمال', hours: 3, grade: 'أ', points: 4.0, gpa: 12.0 },
+    { code: 'سلم 1201', title: 'أصول الإسلام', hours: 2, grade: 'أ-', points: 3.7, gpa: 7.4 },
+    { code: 'حسب 2302', title: 'المحاسبة المتوسطة 1', hours: 3, grade: 'ب+', points: 3.3, gpa: 9.9 },
+    { code: 'دار 2303', title: 'أساسيات نظم المعلومات الإدارية', hours: 3, grade: 'أ-', points: 3.7, gpa: 11.1 },
+    { code: 'حسب 2304', title: 'مبادئ التكاليف والمحاسبة الإدارية', hours: 3, grade: 'ب+', points: 3.3, gpa: 9.9 },
+    { code: 'مال 2308', title: 'مبادئ الاستثمار', hours: 3, grade: 'أ', points: 4.0, gpa: 12.0 }
+];
 
-// Initialize the application
+// المقررات المسجلة
+let registeredCourses = [];
+
+// الجدول الدراسي
+const scheduleData = {
+    '08:00-09:30': {
+        'الأحد': null,
+        'الاثنين': null,
+        'الثلاثاء': null,
+        'الأربعاء': null,
+        'الخميس': null
+    },
+    '10:00-11:30': {
+        'الأحد': null,
+        'الاثنين': null,
+        'الثلاثاء': null,
+        'الأربعاء': null,
+        'الخميس': null
+    },
+    '12:00-13:30': {
+        'الأحد': null,
+        'الاثنين': null,
+        'الثلاثاء': null,
+        'الأربعاء': null,
+        'الخميس': null
+    },
+    '14:00-15:30': {
+        'الأحد': null,
+        'الاثنين': null,
+        'الثلاثاء': null,
+        'الأربعاء': null,
+        'الخميس': null
+    },
+    '16:00-17:30': {
+        'الأحد': null,
+        'الاثنين': null,
+        'الثلاثاء': null,
+        'الأربعاء': null,
+        'الخميس': null
+    }
+};
+
+// تهيئة الصفحة
 document.addEventListener('DOMContentLoaded', function() {
-    initializeEventListeners();
-    showSection('search-section');
+    // التحقق من تسجيل الدخول أولاً
+    checkLoginStatus();
+    
+    initializeNavigation();
+    loadAvailableCourses();
+    loadGrades();
+    updateSchedule();
+    updateStudentInfo();
+    initializeLogout();
 });
 
-// Initialize all event listeners
-function initializeEventListeners() {
-    // Search form submission
-    searchForm.addEventListener('submit', handleSearch);
-    
-    // Navigation buttons
-    confirmBtn.addEventListener('click', () => showSection('confirmation-section'));
-    backSearchBtn.addEventListener('click', () => showSection('search-section'));
-    proceedPaymentBtn.addEventListener('click', () => showSection('payment-section'));
-    uploadReceiptBtn.addEventListener('click', () => showSection('upload-section'));
-    submitReceiptBtn.addEventListener('click', handleSubmitReceipt);
-    newSearchBtn.addEventListener('click', resetApplication);
-    
-    // File upload functionality
-    receiptFileInput.addEventListener('change', handleFileSelect);
-    uploadArea.addEventListener('click', () => receiptFileInput.click());
-    uploadArea.addEventListener('dragover', handleDragOver);
-    uploadArea.addEventListener('drop', handleFileDrop);
-    uploadArea.addEventListener('dragenter', (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('dragover');
+// تهيئة التنقل بين التبويبات
+function initializeNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // إزالة الفئة النشطة من جميع العناصر
+            navItems.forEach(nav => nav.classList.remove('active'));
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            // إضافة الفئة النشطة للعنصر المحدد
+            this.classList.add('active');
+            document.getElementById(targetTab).classList.add('active');
+        });
     });
-    uploadArea.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('dragover');
-    });
-    
-    // Input formatting
- 
-    // Copy account number functionality
-    window.copyAccountNumber = copyAccountNumber;
-    window.removeFile = removeFile;
 }
 
-// Show specific section
-function showSection(sectionId) {
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-        currentSection = sectionId;
-        
-        // Scroll to top when changing sections
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // Add entrance animation
-        targetSection.style.animation = 'none';
-        setTimeout(() => {
-            targetSection.style.animation = 'fadeInUp 0.6s ease-out';
-        }, 10);
-    }
+// تحديث معلومات الطالبة
+function updateStudentInfo() {
+    document.getElementById('student-name').textContent = studentData.name;
+    document.getElementById('student-id').textContent = studentData.id;
 }
 
-// Handle search form submission
-function handleSearch(e) {
-    e.preventDefault();
-    
-    const nationalId = nationalIdInput.value.trim().replace(/\s/g, '');
-    const phone = phoneInput.value.trim().replace(/\s/g, '');
-    
-    // Validate inputs
-    if (!validateNationalId(nationalId)) {
-        showAlert('يرجى إدخال رقم هوية صحيح (10 أرقام)', 'error');
+// تحميل المقررات المتاحة
+function loadAvailableCourses() {
+    const coursesContainer = document.getElementById('available-courses');
+    coursesContainer.innerHTML = '';
+
+    availableCourses.forEach(course => {
+        const courseCard = createCourseCard(course);
+        coursesContainer.appendChild(courseCard);
+    });
+}
+
+// إنشاء بطاقة مقرر
+function createCourseCard(course) {
+    const card = document.createElement('div');
+    card.className = 'course-card';
+    card.setAttribute('data-course-code', course.code);
+
+    const scheduleItems = course.schedule.map(item => 
+        `<div class="schedule-item">${item.day} ${item.time}</div>`
+    ).join('');
+
+    card.innerHTML = `
+        <div class="course-header">
+            <span class="course-code">${course.code}</span>
+            <span class="course-hours">${course.hours} ساعات</span>
+        </div>
+        <div class="course-title">${course.title}</div>
+        <div class="course-details">${course.description}</div>
+        <div class="course-schedule">
+            ${scheduleItems}
+        </div>
+        <div class="course-actions">
+            <span class="course-type">${course.type}</span>
+            <button class="btn-register" onclick="registerCourse('${course.code}')">
+                <i class="fas fa-plus"></i> تسجيل
+            </button>
+        </div>
+    `;
+
+    return card;
+}
+
+// تسجيل مقرر
+function registerCourse(courseCode) {
+    const course = availableCourses.find(c => c.code === courseCode);
+    if (!course) return;
+
+    // التحقق من عدم تسجيل المقرر مسبقاً
+    if (registeredCourses.find(c => c.code === courseCode)) {
+        showNotification('هذا المقرر مسجل بالفعل', 'warning');
         return;
     }
-    
-    if (!validatePhone(phone)) {
-        showAlert('يرجى إدخال رقم هاتف صحيح', 'error');
+
+    // التحقق من الحد الأقصى للساعات
+    const totalHours = registeredCourses.reduce((sum, c) => sum + c.hours, 0);
+    if (totalHours + course.hours > 18) {
+        showNotification('تجاوز الحد الأقصى للساعات المسموح (18 ساعة)', 'error');
         return;
     }
-    
-    // Show loading state
-    const submitBtn = searchForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث...';
-    submitBtn.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        if (nationalId === studentData.nationalId && phone === studentData.phone) {
-            showSection('details-section');
-            showAlert('تم العثور على طلب التحويل بنجاح', 'success');
-        } else {
-            showAlert('لم يتم العثور على طلب تحويل بالبيانات المدخلة', 'error');
-        }
-        
-        // Reset button state
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }, 1500);
-}
 
-// Validate national ID
-function validateNationalId(nationalId) {
-    const cleanId = nationalId.replace(/\s/g, '');
-    return /^\d{10}$/.test(cleanId);
-}
-
-// Validate phone number
-function validatePhone(phone) {
-    const cleanPhone = phone.replace(/\s/g, '');
-    return /^05\d{7}$/.test(cleanPhone);
-}
-
-// Format national ID input
-function formatNationalId(e) {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 10) {
-        value = value.substring(0, 10);
+    // التحقق من تعارض الأوقات
+    if (hasScheduleConflict(course)) {
+        showNotification('يوجد تعارض في الأوقات مع مقرر آخر', 'error');
+        return;
     }
-    
-    e.target.value = value;
+
+    // إضافة المقرر للمقررات المسجلة
+    registeredCourses.push(course);
+    updateRegisteredCourses();
+    updateSchedule();
+    updateCourseCard(courseCode, true);
+    showNotification(`تم تسجيل مقرر ${course.title} بنجاح`, 'success');
 }
 
-// Format phone input
-function formatPhone(e) {
-    let value = e.target.value.replace(/\D/g, '');
+// إلغاء تسجيل مقرر
+function unregisterCourse(courseCode) {
+    const courseIndex = registeredCourses.findIndex(c => c.code === courseCode);
+    if (courseIndex === -1) return;
+
+    const course = registeredCourses[courseIndex];
+    registeredCourses.splice(courseIndex, 1);
     
-    // Ensure it starts with 05 or 5
-    if (value.length > 0 && !value.startsWith('05') && !value.startsWith('5')) {
-        if (value.startsWith('0')) {
-            value = '05' + value.substring(1);
-        } else {
-            value = '05' + value;
+    updateRegisteredCourses();
+    updateSchedule();
+    updateCourseCard(courseCode, false);
+    showNotification(`تم إلغاء تسجيل مقرر ${course.title}`, 'info');
+}
+
+// التحقق من تعارض الأوقات
+function hasScheduleConflict(newCourse) {
+    for (const registeredCourse of registeredCourses) {
+        for (const newSchedule of newCourse.schedule) {
+            for (const existingSchedule of registeredCourse.schedule) {
+                if (newSchedule.day === existingSchedule.day && 
+                    newSchedule.time === existingSchedule.time) {
+                    return true;
+                }
+            }
         }
     }
-    if (value.length > 10) {
-        value = value.substring(0, 10);
-    }
-    
-    e.target.value = value;
+    return false;
 }
 
-// Handle file selection
-function handleFileSelect(e) {
-    const file = e.target.files[0];
-    if (file) {
-        processFile(file);
-    }
-}
+// تحديث بطاقة المقرر
+function updateCourseCard(courseCode, isRegistered) {
+    const card = document.querySelector(`[data-course-code="${courseCode}"]`);
+    if (!card) return;
 
-// Handle drag and drop
-function handleDragOver(e) {
-    e.preventDefault();
-    uploadArea.classList.add('dragover');
-}
-
-function handleFileDrop(e) {
-    e.preventDefault();
-    uploadArea.classList.remove('dragover');
+    const button = card.querySelector('.btn-register');
     
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        processFile(files[0]);
-    }
-}
-
-// Process uploaded file
-function processFile(file) {
-    // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
-    if (!allowedTypes.includes(file.type)) {
-        showAlert('نوع الملف غير مدعوم. يرجى اختيار صورة (JPG, PNG) أو ملف PDF', 'error');
-        return;
-    }
-    
-    // Validate file size (5MB max)
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    if (file.size > maxSize) {
-        showAlert('حجم الملف كبير جداً. يرجى اختيار ملف أقل من 5 ميجابايت', 'error');
-        return;
-    }
-    
-    uploadedFile = file;
-    
-    // Show file preview for images
-    if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImage.src = e.target.result;
-            filePreview.style.display = 'block';
-            uploadArea.style.display = 'none';
-            submitReceiptBtn.disabled = false;
-        };
-        reader.readAsDataURL(file);
+    if (isRegistered) {
+        card.classList.add('selected');
+        button.innerHTML = '<i class="fas fa-check"></i> مسجل';
+        button.disabled = true;
     } else {
-        // For PDF files, show file info
-        previewImage.style.display = 'none';
-        const fileInfo = document.createElement('div');
-        fileInfo.className = 'file-info';
-        fileInfo.innerHTML = `
-            <i class="fas fa-file-pdf" style="font-size: 48px; color: #dc3545; margin-bottom: 10px;"></i>
-            <p><strong>${file.name}</strong></p>
-            <p>حجم الملف: ${(file.size / 1024 / 1024).toFixed(2)} ميجابايت</p>
+        card.classList.remove('selected');
+        button.innerHTML = '<i class="fas fa-plus"></i> تسجيل';
+        button.disabled = false;
+    }
+}
+
+// تحديث المقررات المسجلة
+function updateRegisteredCourses() {
+    const container = document.getElementById('registered-courses');
+    const totalHoursSpan = document.getElementById('total-hours');
+    const confirmBtn = document.getElementById('confirm-btn');
+
+    if (registeredCourses.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-book-open"></i>
+                <p>لم يتم تسجيل أي مقررات بعد</p>
+            </div>
+        `;
+        totalHoursSpan.textContent = '0';
+        confirmBtn.disabled = true;
+        return;
+    }
+
+    const totalHours = registeredCourses.reduce((sum, course) => sum + course.hours, 0);
+    totalHoursSpan.textContent = totalHours;
+    confirmBtn.disabled = totalHours < 12;
+
+    container.innerHTML = registeredCourses.map(course => `
+        <div class="registered-course">
+            <div class="registered-course-info">
+                <div class="registered-course-title">${course.code} - ${course.title}</div>
+                <div class="registered-course-details">${course.hours} ساعات - ${course.type}</div>
+            </div>
+            <button class="btn-remove" onclick="unregisterCourse('${course.code}')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `).join('');
+}
+
+// تحديث الجدول الدراسي
+function updateSchedule() {
+    // إعادة تعيين الجدول
+    Object.keys(scheduleData).forEach(time => {
+        Object.keys(scheduleData[time]).forEach(day => {
+            scheduleData[time][day] = null;
+        });
+    });
+
+    // إضافة المقررات المسجلة للجدول
+    registeredCourses.forEach(course => {
+        course.schedule.forEach(item => {
+            if (scheduleData[item.time] && scheduleData[item.time][item.day] !== undefined) {
+                scheduleData[item.time][item.day] = {
+                    code: course.code,
+                    title: course.title,
+                    room: item.room
+                };
+            }
+        });
+    });
+
+    renderScheduleTable();
+}
+
+// رسم جدول المحاضرات
+function renderScheduleTable() {
+    const tbody = document.getElementById('schedule-body');
+    tbody.innerHTML = '';
+
+    const times = Object.keys(scheduleData);
+    const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+
+    times.forEach(time => {
+        const row = document.createElement('tr');
+        
+        // عمود الوقت
+        const timeCell = document.createElement('td');
+        timeCell.textContent = time;
+        timeCell.style.fontWeight = 'bold';
+        timeCell.style.backgroundColor = 'var(--light-green)';
+        row.appendChild(timeCell);
+
+        // أعمدة الأيام
+        days.forEach(day => {
+            const cell = document.createElement('td');
+            const slot = scheduleData[time][day];
+            
+            if (slot) {
+                cell.innerHTML = `
+                    <div class="schedule-slot">
+                        <div class="schedule-slot-title">${slot.code}</div>
+                        <div class="schedule-slot-title">${slot.title}</div>
+                        <div class="schedule-slot-room">${slot.room}</div>
+                    </div>
+                `;
+            }
+            
+            row.appendChild(cell);
+        });
+
+        tbody.appendChild(row);
+    });
+}
+
+// تحميل الدرجات
+function loadGrades() {
+    const tbody = document.getElementById('grades-body');
+    tbody.innerHTML = '';
+
+    previousGrades.forEach(grade => {
+        const row = document.createElement('tr');
+        
+        const gradeClass = getGradeClass(grade.grade);
+        
+        row.innerHTML = `
+            <td>${grade.code}</td>
+            <td>${grade.title}</td>
+            <td>${grade.hours}</td>
+            <td><span class="${gradeClass}">${grade.grade}</span></td>
+            <td>${grade.points}</td>
+            <td>${grade.gpa}</td>
         `;
         
-        const previewContent = document.querySelector('.preview-content');
-        previewContent.innerHTML = '';
-        previewContent.appendChild(fileInfo);
-        
-        filePreview.style.display = 'block';
-        uploadArea.style.display = 'none';
-        submitReceiptBtn.disabled = false;
-    }
+        tbody.appendChild(row);
+    });
+}
+
+// تحديد فئة الدرجة للتنسيق
+function getGradeClass(grade) {
+    if (grade === 'أ' || grade === 'أ-') return 'grade-excellent';
+    if (grade === 'ب+' || grade === 'ب') return 'grade-very-good';
+    if (grade === 'ب-' || grade === 'ج+') return 'grade-good';
+    return '';
+}
+
+// تأكيد التسجيل
+function confirmRegistration() {
+    if (registeredCourses.length === 0) return;
+
+    const totalHours = registeredCourses.reduce((sum, course) => sum + course.hours, 0);
     
-    showAlert('تم رفع الملف بنجاح', 'success');
-}
-
-// Remove uploaded file
-function removeFile() {
-    uploadedFile = null;
-    filePreview.style.display = 'none';
-    uploadArea.style.display = 'block';
-    submitReceiptBtn.disabled = true;
-    receiptFileInput.value = '';
-}
-
-// Handle receipt submission
-function handleSubmitReceipt() {
-    if (!uploadedFile) {
-        showAlert('يرجى رفع إيصال السداد أولاً', 'error');
+    if (totalHours < 12) {
+        showNotification('الحد الأدنى للساعات هو 12 ساعة', 'error');
         return;
     }
+
+    // محاكاة عملية التسجيل
+    showNotification('جاري تأكيد التسجيل...', 'info');
     
-    // Show loading state
-    const originalText = submitReceiptBtn.innerHTML;
-    submitReceiptBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-    submitReceiptBtn.disabled = true;
-    
-    // Simulate file upload
     setTimeout(() => {
-        showSection('final-section');
-        showAlert('تم إرسال إيصال السداد بنجاح', 'success');
-        
-        // Reset button state
-        submitReceiptBtn.innerHTML = originalText;
-        submitReceiptBtn.disabled = false;
+        showNotification('تم تأكيد تسجيل المقررات بنجاح!', 'success');
+        document.getElementById('confirm-btn').disabled = true;
+        document.getElementById('confirm-btn').innerHTML = '<i class="fas fa-check"></i> تم التأكيد';
     }, 2000);
 }
 
-// Copy account number to clipboard
-function copyAccountNumber() {
-    const accountNumber = 'SA0745000000018516153001';
-    
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(accountNumber).then(() => {
-            showAlert('تم نسخ رقم الحساب', 'success');
-        }).catch(() => {
-            fallbackCopyTextToClipboard(accountNumber);
-        });
-    } else {
-        fallbackCopyTextToClipboard(accountNumber);
+// إضافة مستمع الحدث لزر التأكيد
+document.addEventListener('DOMContentLoaded', function() {
+    const confirmBtn = document.getElementById('confirm-btn');
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', confirmRegistration);
     }
-}
+});
 
-// Fallback copy function for older browsers
-function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.top = '0';
-    textArea.style.left = '0';
-    textArea.style.position = 'fixed';
-    
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-        document.execCommand('copy');
-        showAlert('تم نسخ رقم الحساب', 'success');
-    } catch (err) {
-        showAlert('فشل في نسخ رقم الحساب', 'error');
-    }
-    
-    document.body.removeChild(textArea);
-}
-
-// Reset application to initial state
-function resetApplication() {
-    // Clear form inputs
-    searchForm.reset();
-    
-    // Reset file upload
-    removeFile();
-    
-    // Show first section
-    showSection('search-section');
-    
-    // Reset state
-    uploadedFile = null;
-    currentSection = 'search-section';
-    
-    showAlert('تم إعادة تعيين البوابة', 'info');
-}
-
-// Show alert messages
-function showAlert(message, type = 'info') {
-    // Remove existing alerts
-    const existingAlerts = document.querySelectorAll('.alert');
-    existingAlerts.forEach(alert => alert.remove());
-    
-    // Create new alert
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type}`;
-    alert.innerHTML = `
-        <div class="alert-content">
-            <i class="fas ${getAlertIcon(type)}"></i>
+// عرض الإشعارات
+function showNotification(message, type = 'info') {
+    // إنشاء عنصر الإشعار
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${getNotificationIcon(type)}"></i>
             <span>${message}</span>
         </div>
-        <button class="alert-close" onclick="this.parentElement.remove()">
+        <button class="notification-close" onclick="closeNotification(this)">
             <i class="fas fa-times"></i>
         </button>
     `;
-    
-    // Add alert styles
-    alert.style.cssText = `
+
+    // إضافة الأنماط
+    notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        z-index: 1000;
-        padding: 15px 20px;
+        background: ${getNotificationColor(type)};
+        color: white;
+        padding: 1rem 1.5rem;
         border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        min-width: 300px;
-        max-width: 500px;
-        animation: slideInRight 0.3s ease-out;
-        font-family: 'Cairo', sans-serif;
-        font-weight: 500;
+        gap: 1rem;
+        max-width: 400px;
+        animation: slideIn 0.3s ease;
     `;
-    
-    // Set alert colors based on type
-    const colors = {
-        success: { bg: '#d4edda', border: '#c3e6cb', text: '#155724' },
-        error: { bg: '#f8d7da', border: '#f5c6cb', text: '#721c24' },
-        warning: { bg: '#fff3cd', border: '#ffeaa7', text: '#856404' },
-        info: { bg: '#d1ecf1', border: '#bee5eb', text: '#0c5460' }
-    };
-    
-    const color = colors[type] || colors.info;
-    alert.style.backgroundColor = color.bg;
-    alert.style.border = `1px solid ${color.border}`;
-    alert.style.color = color.text;
-    
-    // Add to document
-    document.body.appendChild(alert);
-    
-    // Auto remove after 5 seconds
+
+    // إضافة الإشعار للصفحة
+    document.body.appendChild(notification);
+
+    // إزالة الإشعار تلقائياً بعد 5 ثوان
     setTimeout(() => {
-        if (alert.parentElement) {
-            alert.style.animation = 'slideOutRight 0.3s ease-in';
-            setTimeout(() => alert.remove(), 300);
+        if (notification.parentNode) {
+            closeNotification(notification.querySelector('.notification-close'));
         }
     }, 5000);
 }
 
-// Get alert icon based on type
-function getAlertIcon(type) {
-    const icons = {
-        success: 'fa-check-circle',
-        error: 'fa-exclamation-circle',
-        warning: 'fa-exclamation-triangle',
-        info: 'fa-info-circle'
-    };
-    return icons[type] || icons.info;
+// إغلاق الإشعار
+function closeNotification(button) {
+    const notification = button.parentNode;
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 300);
 }
 
-// Add CSS animations for alerts
-const alertStyles = document.createElement('style');
-alertStyles.textContent = `
-    @keyframes slideInRight {
+// الحصول على أيقونة الإشعار
+function getNotificationIcon(type) {
+    const icons = {
+        success: 'check-circle',
+        error: 'exclamation-circle',
+        warning: 'exclamation-triangle',
+        info: 'info-circle'
+    };
+    return icons[type] || 'info-circle';
+}
+
+// الحصول على لون الإشعار
+function getNotificationColor(type) {
+    const colors = {
+        success: '#28a745',
+        error: '#dc3545',
+        warning: '#ffc107',
+        info: '#17a2b8'
+    };
+    return colors[type] || '#17a2b8';
+}
+
+// إضافة أنماط الحركة للإشعارات
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
         from {
             transform: translateX(100%);
             opacity: 0;
@@ -418,8 +558,8 @@ alertStyles.textContent = `
             opacity: 1;
         }
     }
-    
-    @keyframes slideOutRight {
+
+    @keyframes slideOut {
         from {
             transform: translateX(0);
             opacity: 1;
@@ -429,140 +569,142 @@ alertStyles.textContent = `
             opacity: 0;
         }
     }
-    
-    .alert-content {
+
+    .notification-content {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 0.5rem;
     }
-    
-    .alert-close {
+
+    .notification-close {
         background: none;
         border: none;
+        color: white;
         cursor: pointer;
-        padding: 5px;
-        opacity: 0.7;
-        transition: opacity 0.2s;
+        padding: 0.25rem;
+        border-radius: 4px;
+        transition: background 0.2s ease;
     }
-    
-    .alert-close:hover {
-        opacity: 1;
-    }
-    
-    .file-info {
-        text-align: center;
-        padding: 20px;
-    }
-    
-    .file-info p {
-        margin: 5px 0;
-        color: var(--dark-gray);
+
+    .notification-close:hover {
+        background: rgba(255, 255, 255, 0.2);
     }
 `;
+document.head.appendChild(style);
 
-document.head.appendChild(alertStyles);
 
-// Add smooth scrolling for better UX
-document.documentElement.style.scrollBehavior = 'smooth';
 
-// Add loading states for better feedback
-function addLoadingState(button, loadingText) {
-    const originalText = button.innerHTML;
-    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
-    button.disabled = true;
+// التحقق من حالة تسجيل الدخول
+function checkLoginStatus() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     
-    return () => {
-        button.innerHTML = originalText;
-        button.disabled = false;
-    };
-}
-
-// Enhanced form validation with real-time feedback
-function addRealTimeValidation() {
-    nationalIdInput.addEventListener('blur', function() {
-        const value = this.value.replace(/\s/g, '');
-        if (value && !validateNationalId(value)) {
-            this.style.borderColor = '#dc3545';
-            showFieldError(this, 'رقم الهوية يجب أن يكون 10 أرقام');
-        } else {
-            this.style.borderColor = '#28a745';
-            hideFieldError(this);
-        }
-    });
+    if (!isLoggedIn || isLoggedIn !== 'true') {
+        // إعادة توجيه إلى صفحة تسجيل الدخول
+        window.location.href = 'login.html';
+        return;
+    }
     
-    phoneInput.addEventListener('blur', function() {
-        const value = this.value.replace(/\s/g, '');
-        if (value && !validatePhone(value)) {
-            this.style.borderColor = '#dc3545';
-            showFieldError(this, 'رقم الهاتف غير صحيح');
-        } else {
-            this.style.borderColor = '#28a745';
-            hideFieldError(this);
+    // التحقق من انتهاء صلاحية الجلسة (24 ساعة)
+    const studentData = sessionStorage.getItem('studentData');
+    if (studentData) {
+        const data = JSON.parse(studentData);
+        const loginTime = new Date(data.loginTime);
+        const currentTime = new Date();
+        const timeDiff = currentTime - loginTime;
+        const hoursDiff = timeDiff / (1000 * 60 * 60);
+        
+        if (hoursDiff > 24) {
+            // انتهت صلاحية الجلسة
+            logout();
+            return;
         }
-    });
-}
-
-function showFieldError(field, message) {
-    hideFieldError(field);
-    const error = document.createElement('div');
-    error.className = 'field-error';
-    error.textContent = message;
-    error.style.cssText = `
-        color: #dc3545;
-        font-size: 12px;
-        margin-top: 5px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    `;
-    error.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-    field.parentElement.appendChild(error);
-}
-
-function hideFieldError(field) {
-    const existingError = field.parentElement.querySelector('.field-error');
-    if (existingError) {
-        existingError.remove();
     }
 }
 
-// Initialize real-time validation
-document.addEventListener('DOMContentLoaded', function() {
-    addRealTimeValidation();
-});
+// تهيئة وظيفة تسجيل الخروج
+function initializeLogout() {
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogoutConfirmation();
+        });
+    }
+}
 
-// Add keyboard navigation support
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-        const activeSection = document.querySelector('.section.active');
-        const primaryButton = activeSection.querySelector('.btn-primary:not(:disabled)');
-        if (primaryButton) {
-            primaryButton.click();
-        }
+// إظهار تأكيد تسجيل الخروج
+function showLogoutConfirmation() {
+    const confirmation = confirm('هل أنت متأكد من رغبتك في تسجيل الخروج؟');
+    if (confirmation) {
+        logout();
+    }
+}
+
+// تسجيل الخروج
+function logout() {
+    // إظهار رسالة تسجيل الخروج
+    showNotification('جاري تسجيل الخروج...', 'info');
+    
+    // محو بيانات الجلسة
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('studentData');
+    
+    // تأخير قصير لإظهار الرسالة
+    setTimeout(() => {
+        // إعادة التوجيه إلى صفحة تسجيل الدخول
+        window.location.href = 'index.html';
+    }, 1000);
+}
+
+// تحديث معلومات الطالبة من بيانات الجلسة
+function updateStudentInfoFromSession() {
+    const studentData = sessionStorage.getItem('studentData');
+    if (studentData) {
+        const data = JSON.parse(studentData);
+        // يمكن استخدام بيانات إضافية من الجلسة إذا لزم الأمر
+        console.log('بيانات الطالب من الجلسة:', data);
+    }
+}
+
+// إضافة مؤقت لتحديث حالة الجلسة
+setInterval(() => {
+    checkLoginStatus();
+}, 60000); // فحص كل دقيقة
+
+// معالجة إغلاق النافذة أو التبويب
+window.addEventListener('beforeunload', function(e) {
+    // يمكن إضافة تحذير إذا كان هناك بيانات غير محفوظة
+    const hasUnsavedData = registeredCourses.length > 0 && 
+                          !document.getElementById('confirm-btn').disabled;
+    
+    if (hasUnsavedData) {
+        e.preventDefault();
+        e.returnValue = 'لديك مقررات غير مؤكدة. هل أنت متأكد من الخروج؟';
+        return e.returnValue;
     }
 });
 
-// Add accessibility improvements
-function improveAccessibility() {
-    // Add ARIA labels
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        if (!button.getAttribute('aria-label')) {
-            button.setAttribute('aria-label', button.textContent.trim());
-        }
-    });
+// تحسين أمان الجلسة
+function enhanceSessionSecurity() {
+    // منع فتح عدة تبويبات لنفس الجلسة
+    const sessionId = sessionStorage.getItem('sessionId') || generateSessionId();
+    sessionStorage.setItem('sessionId', sessionId);
     
-    // Add focus management
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        section.setAttribute('tabindex', '-1');
+    // التحقق من تغيير التبويب
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            checkLoginStatus();
+        }
     });
 }
 
-// Initialize accessibility improvements
-document.addEventListener('DOMContentLoaded', function() {
-    improveAccessibility();
-});
+// توليد معرف جلسة فريد
+function generateSessionId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
 
-console.log('بوابة التحويل الداخلي - جامعة شقراء تم تحميلها بنجاح');
+// تهيئة أمان الجلسة
+document.addEventListener('DOMContentLoaded', function() {
+    enhanceSessionSecurity();
+});
 
