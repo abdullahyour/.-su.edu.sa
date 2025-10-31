@@ -130,8 +130,8 @@
     </div>
 
     <script src="login-script-fixed.js">
-        
-    </script>
+
+</script>
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -142,9 +142,8 @@
     :root{
       --bg:#f6f7fb; --card:#fff; --accent:#0b5fff; --green:#0b5f2f; --muted:#6b7280; --border:#e6e9ef;
     }
-    /* page */
     body{font-family:"Noto Naskh Arabic", Arial, sans-serif;background:var(--bg);margin:0;padding:28px;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;color:#222}
-    .wrap{width:400px; /* card width similar to screenshot */ background:var(--card);border-radius:12px;box-shadow:0 8px 28px rgba(15,23,42,0.06);overflow:visible}
+    .wrap{width:440px;background:var(--card);border-radius:12px;box-shadow:0 8px 28px rgba(15,23,42,0.06)}
     .card-head{background:linear-gradient(180deg,var(--green),#0b7a36);padding:22px;border-top-left-radius:12px;border-top-right-radius:12px;color:#fff;text-align:center}
     .card-head img{width:64px;height:64px;display:block;margin:0 auto 6px}
     .card-head h1{margin:0;font-size:20px;font-weight:800}
@@ -153,25 +152,23 @@
     .login-title{font-weight:800;color:#0b5f2f;margin:6px 0 12px}
     .field{margin-bottom:10px}
     .field label{display:block;font-weight:700;margin-bottom:6px}
-    input[type=text], input[type=email], input[type=date], input[type=number], input[type=tel], select, textarea {
-      width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:14px;box-sizing:border-box;
+    input, select, textarea{
+      width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:14px;box-sizing:border-box
     }
     textarea{min-height:80px;resize:vertical}
     .btn{display:inline-block;background:var(--green);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:800;width:100%}
     .btn.secondary{background:#6b7280}
     .small{font-size:13px;color:var(--muted);margin-top:8px}
-    .login-form{display:block}
-    /* place the new applicant button directly under login button */
     .actions{margin-top:8px;display:flex;flex-direction:column;gap:8px}
 
-    /* drawer (form) inside card */
-    .drawer{transition:all .36s ease;opacity:0;max-height:0;overflow:hidden;transform:translateY(-6px);border-top:1px solid var(--border)}
+    /* drawer (form) */
+    .drawer{transition:all .35s ease;opacity:0;max-height:0;overflow:hidden;transform:translateY(-6px);border-top:1px solid var(--border)}
     .drawer.open{opacity:1;max-height:1400px;transform:translateY(0);padding:16px 18px}
-    .drawer .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .drawer .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .drawer .form-grid input, .drawer .form-grid select, .drawer .form-grid textarea{font-size:15px;padding:11px}
     .full{grid-column:1 / -1}
-    .section-title{grid-column:1 / -1;border-top:1px dashed var(--border);padding-top:10px;margin-top:6px;font-weight:800;color:#0b5f2f}
+    .section-title{grid-column:1 / -1;border-top:1px dashed var(--border);padding-top:10px;margin-top:8px;font-weight:800;color:#0b5f2f}
     .note{background:#fffbea;padding:10px;border-left:4px solid #f59e0b;border-radius:8px;font-size:13px;color:#444}
-
     .error{color:#b91c1c;font-size:13px;margin-top:6px}
     .success{color:#065f46;font-size:14px;margin-top:6px}
 
@@ -183,678 +180,105 @@
 </head>
 <body>
   <div class="wrap" id="cardWrap">
-    <div class="card-head" aria-hidden="false">
-      <!-- شعار افتراضي، يمكن استبداله بصورة شعار الجامعة -->
+    <div class="card-head">
       <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='100%' height='100%' rx='20' fill='%230b7a36'/></svg>" alt="شعار">
       <h1>جامعة شقراء</h1>
       <p>بوابة الطالب الأكاديمية</p>
     </div>
 
     <div class="card-body">
-      <!-- Login area (as in your page) -->
       <div class="login-form" id="loginArea">
         <div class="login-title">تسجيل الدخول</div>
-
         <div class="field">
           <label>رقم الهوية / رقم الطالب</label>
-          <input type="text" id="loginId" placeholder="أدخل رقم الهوية أو رقم الطالب">
+          <input type="text" placeholder="أدخل رقم الهوية أو رقم الطالب">
         </div>
-
         <div class="field">
           <label>كلمة المرور</label>
-          <input type="text" id="loginPass" placeholder="أدخل كلمة المرور">
+          <input type="password" placeholder="أدخل كلمة المرور">
         </div>
-
         <div class="actions">
           <button id="loginBtn" class="btn">تسجيل الدخول</button>
-          <!-- NEW APPLICANT BUTTON inserted directly after login button visually -->
           <button id="newApplicantBtn" class="btn" type="button">تقديم طالب جديد</button>
         </div>
-
         <p class="small">إذا نسيت كلمة المرور تواصل مع الدعم الفني.</p>
       </div>
 
-      <!-- drawer: the full official form appears here inside same card -->
       <div id="appDrawer" class="drawer" aria-hidden="true">
-        <form id="appForm" class="form-grid" enctype="multipart/form-data" novalidate>
-          <!-- Hidden meta -->
-          <input type="hidden" name="source" value="university_shaqra_application">
-
-          <div class="full"><h3 style="margin:0">نموذج تقديم طالب جديد - جامعة شقراء</h3></div>
-
-          <!-- 1. البيانات الشخصية -->
-          <div class="section-title">1. البيانات الشخصية</div>
-
-          <div>
-            <label>الاسم الرباعي (بالعربية) <span style="color:#b91c1c">*</span></label>
-            <input name="fullNameAr" required>
-          </div>
-
-          <div>
-            <label>Full name (English) <span style="color:#b91c1c">*</span></label>
-            <input name="fullNameEn" required>
-          </div>
-
-          <div>
-            <label>الاسم الأول</label>
-            <input name="firstName">
-          </div>
-
-          <div>
-            <label>اسم العائلة</label>
-            <input name="familyName">
-          </div>
-
-          <div>
-            <label>اسم الأم</label>
-            <input name="motherName">
-          </div>
-
-          <div>
-            <label>نوع الهوية <span style="color:#b91c1c">*</span></label>
-            <select name="idType" required>
-              <option value="">اختر...</option>
-              <option value="national">هوية وطنية</option>
-              <option value="iqama">إقامة</option>
-              <option value="passport">جواز سفر</option>
-            </select>
-          </div>
-
-          <div>
-            <label>رقم الهوية / الإقامة / جواز <span style="color:#b91c1c">*</span></label>
-            <input name="idNumber" required>
-          </div>
-
-          <div>
-            <label>مكان إصدار الهوية / الجواز</label>
-            <input name="idPlace">
-          </div>
-
-          <div>
-            <label>تاريخ الميلاد <span style="color:#b91c1c">*</span></label>
-            <input type="date" name="birthDate" required>
-          </div>
-
-          <div>
-            <label>الجنس <span style="color:#b91c1c">*</span></label>
+        <form id="appForm" class="form-grid" enctype="multipart/form-data">
+          <div class="full"><h3 style="margin:0">نموذج تقديم طالب جديد</h3></div>
+          <div class="section-title">البيانات الشخصية</div>
+          <div><label>الاسم الكامل</label><input name="fullName" required></div>
+          <div><label>الهوية / الإقامة</label><input name="idNumber" required></div>
+          <div><label>تاريخ الميلاد</label><input type="date" name="birthDate" required></div>
+          <div><label>الجنس</label>
             <select name="gender" required>
-              <option value="">اختر...</option>
-              <option value="male">ذكر</option>
-              <option value="female">أنثى</option>
-              <option value="other">أخرى</option>
+              <option value="">اختر...</option><option>ذكر</option><option>أنثى</option>
             </select>
           </div>
+          <div><label>رقم الجوال</label><input name="phone" placeholder="05xxxxxxxx" required></div>
+          <div><label>البريد الإلكتروني</label><input type="email" name="email" required></div>
 
-          <div>
-            <label>الجنسية <span style="color:#b91c1c">*</span></label>
-            <input name="nationality" required>
-          </div>
-
-          <div>
-            <label>الحالة الاجتماعية</label>
-            <select name="maritalStatus">
-              <option value="">اختر...</option>
-              <option value="single">أعزب/عزباء</option>
-              <option value="married">متزوج/متزوجة</option>
-              <option value="divorced">مطلق/مطلقة</option>
-              <option value="widowed">أرمل/أرملة</option>
+          <div class="section-title">البيانات الأكاديمية</div>
+          <div><label>آخر مؤهل</label>
+            <select name="degree" required>
+              <option value="">اختر...</option><option>ثانوية عامة</option><option>دبلوم</option><option>بكالوريوس</option>
             </select>
           </div>
+          <div><label>سنة التخرج</label><input type="number" name="graduationYear" min="1900" max="2100" required></div>
+          <div><label>المعدل / النسبة</label><input name="gpa" required></div>
+          <div class="full"><label>مرفقات الشهادة</label><input type="file" name="certificates" accept="application/pdf,image/*" multiple required></div>
 
-          <div>
-            <label>رقم الجوال <span style="color:#b91c1c">*</span></label>
-            <input name="phone" placeholder="05xxxxxxxx أو +9665xxxxxxxx" required>
-          </div>
-
-          <div>
-            <label>البريد الإلكتروني <span style="color:#b91c1c">*</span></label>
-            <input type="email" name="email" required>
-          </div>
-
-          <div class="full">
-            <label>صورة شخصية (مرفق)</label>
-            <input type="file" name="photo" accept="image/*">
-            <p class="small">يفضل صورة حديثة بخلفية واضحة.</p>
-          </div>
-
-          <!-- 2. بيانات العنوان -->
-          <div class="section-title">2. بيانات العنوان</div>
-
-          <div>
-            <label>المنطقة / المحافظة</label>
-            <input name="region">
-          </div>
-
-          <div>
-            <label>المدينة / البلدة</label>
-            <input name="city">
-          </div>
-
-          <div>
-            <label>الحي / الشارع</label>
-            <input name="district">
-          </div>
-
-          <div>
-            <label>الرمز البريدي</label>
-            <input name="postalCode">
-          </div>
-
-          <div class="full">
-            <label>العنوان الوطني / العنوان التفصيلي</label>
-            <input name="address" placeholder="مثال: شارع الملك فهد، حي النخيل، منزل رقم 12">
-          </div>
-
-          <!-- 3. البيانات الأكاديمية -->
-          <div class="section-title">3. البيانات الأكاديمية</div>
-
-          <div>
-            <label>نوع المؤهل الأخير <span style="color:#b91c1c">*</span></label>
-            <select name="lastQualification" required>
-              <option value="">اختر...</option>
-              <option value="secondary">ثانوية عامة</option>
-              <option value="diploma">دبلوم</option>
-              <option value="bachelor">بكالوريوس</option>
-              <option value="master">ماجستير</option>
-              <option value="phd">دكتوراه</option>
-              <option value="other">أخرى</option>
-            </select>
-          </div>
-
-          <div>
-            <label>اسم المؤسسة التعليمية (مطلوب)</label>
-            <input name="issuingInstitution" required placeholder="اسم المدرسة أو الجامعة">
-          </div>
-
-          <div>
-            <label>البلد المصدر للشهادة (مطلوب)</label>
-            <input name="degreeCountry" required>
-          </div>
-
-          <div>
-            <label>التخصص</label>
-            <input name="major">
-          </div>
-
-          <div>
-            <label>سنة التخرج (مطلوب)</label>
-            <input type="number" name="graduationYear" min="1900" max="2100" required>
-          </div>
-
-          <div>
-            <label>تاريخ التخرج</label>
-            <input type="date" name="graduationDate">
-          </div>
-
-          <div>
-            <label>المعدل / النسبة (مطلوب)</label>
-            <input name="gpa" required placeholder="مثال: 4.00 أو 92%">
-          </div>
-
-          <div>
-            <label>نظام التقييم</label>
-            <select name="gradingSystem">
-              <option value="">اختر...</option>
-              <option value="gpa">GPA</option>
-              <option value="percentage">النسبة المئوية</option>
-              <option value="score">نظام آخر</option>
-            </select>
-          </div>
-
-          <div class="full">
-            <label>مرفقات الشهادة والسجل الأكاديمي (PDF / صور) <span style="color:#b91c1c">*</span></label>
-            <input type="file" name="certificates" accept="application/pdf,image/*" multiple required>
-            <p class="small">ارفق شهادة التخرج، السجل الأكاديمي، وشهادة المعادلة إن وُجدت.</p>
-          </div>
-
-          <!-- 4. الاختبارات والدرجات -->
-          <div class="section-title">4. الاختبارات والدرجات</div>
-
-          <div>
-            <label>هل لديك نتيجة قياس؟</label>
-            <select name="hasQiyas">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <div>
-            <label>رقم جلوس قياس</label>
-            <input name="qiyasNo">
-          </div>
-
-          <div>
-            <label>درجة قياس</label>
-            <input name="qiyasScore" placeholder="مثال: 85">
-          </div>
-
-          <div>
-            <label>رقم جلوس التحصيلي</label>
-            <input name="tahseeliNo">
-          </div>
-
-          <div>
-            <label>درجة التحصيلي</label>
-            <input name="tahseeliScore">
-          </div>
-
-          <div class="full">
-            <label>اختبار اللغة الإنجليزية (مثال: IELTS/TOEFL)</label>
-            <input name="englishTests" placeholder="مثال: IELTS 6.0 - تاريخ">
-          </div>
-
-          <div class="full">
-            <label>مرفقات نتائج الاختبارات (إن وجدت)</label>
-            <input type="file" name="testsAttachments" accept="application/pdf,image/*" multiple>
-          </div>
-
-          <!-- 5. رغبات وتفضيلات الدراسة -->
-          <div class="section-title">5. رغبات وتفضيلات الدراسة</div>
-
-          <div>
-            <label>البرنامج / التخصص المرغوب (مطلوب)</label>
-            <input name="desiredProgram" required placeholder="مثال: بكالوريوس علوم الحاسب">
-          </div>
-
-          <div>
-            <label>الكلية / القسم</label>
-            <input name="desiredFaculty">
-          </div>
-
-          <div>
-            <label>نوع الدراسة (مطلوب)</label>
+          <div class="section-title">رغبة الدراسة</div>
+          <div><label>التخصص المرغوب</label><input name="desiredProgram" required></div>
+          <div><label>نوع الدراسة</label>
             <select name="studyType" required>
-              <option value="">اختر...</option>
-              <option value="regular">انتظام</option>
-              <option value="distance">عن بُعد</option>
-              <option value="affiliated">انتساب</option>
-              <option value="part-time">دراسة جزئية</option>
+              <option value="">اختر...</option><option>انتظام</option><option>عن بُعد</option>
             </select>
           </div>
 
-          <div>
-            <label>الفرع / الحرم المفضل</label>
-            <input name="preferredCampus">
-          </div>
-
-          <div class="full">
-            <label>سبب اختيار البرنامج أو ملاحظات هامة للمكتب</label>
-            <textarea name="motivation"></textarea>
-          </div>
-
-          <!-- 6. بيانات العمل -->
-          <div class="section-title">6. بيانات العمل (إن وُجد)</div>
-
-          <div>
-            <label>هل أنت موظف؟</label>
-            <select name="isEmployed">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <div>
-            <label>جهة/اسم العمل</label>
-            <input name="employerName">
-          </div>
-
-          <div>
-            <label>المسمى الوظيفي</label>
-            <input name="jobTitle">
-          </div>
-
-          <div>
-            <label>هاتف جهة العمل</label>
-            <input name="employerPhone">
-          </div>
-
-          <div class="full">
-            <label>موافقة جهة العمل (مرفق)</label>
-            <input type="file" name="employerApproval" accept="application/pdf,image/*">
-          </div>
-
-          <!-- 7. دراسات عليا -->
-          <div class="section-title">7. بيانات الدراسات العليا (إن وُجد)</div>
-
-          <div>
-            <label>الدرجة المطلوبة</label>
-            <select name="postgradDegree">
-              <option value="">اختر...</option>
-              <option value="master">ماجستير</option>
-              <option value="phd">دكتوراه</option>
-            </select>
-          </div>
-
-          <div>
-            <label>تخصص البكالوريوس السابق</label>
-            <input name="undergradMajor">
-          </div>
-
-          <div class="full">
-            <label>عنوان الرسالة المقترح (إن وُجد)</label>
-            <input name="proposalTitle">
-          </div>
-
-          <div class="full">
-            <label>السيرة الذاتية (CV) - مرفق (PDF)</label>
-            <input type="file" name="cv" accept="application/pdf">
-          </div>
-
-          <div class="full">
-            <label>أوراق/أبحاث منشورة (مرفق إن وُجد)</label>
-            <input type="file" name="publications" accept="application/pdf,image/*" multiple>
-          </div>
-
-          <!-- 8. مرفقات إضافية -->
-          <div class="section-title">8. مرفقات ومستندات أخرى</div>
-
-          <div class="full">
-            <label>صورة الهوية أو نسخة الإقامة (مطلوب)</label>
-            <input type="file" name="idAttachment" accept="application/pdf,image/*" required>
-          </div>
-
-          <div>
-            <label>صور شخصية (عدد، مقاس)</label>
-            <input name="photoCount" placeholder="مثال: 2 صورة بمقاس 4x6">
-          </div>
-
-          <div>
-            <label>شهادة حسن السيرة والسلوك / براءة ذمة</label>
-            <input type="file" name="goodConduct" accept="application/pdf,image/*">
-          </div>
-
-          <div class="full">
-            <label>مستندات داعمة أخرى (ID, شهادات تدريب, دورات)</label>
-            <input type="file" name="otherDocs" accept="application/pdf,image/*" multiple>
-          </div>
-
-          <!-- 9. الحالة الصحية والاحتياجات الخاصة -->
-          <div class="section-title">9. الحالة الصحية والاحتياجات الخاصة</div>
-
-          <div>
-            <label>هل لديك حالات صحية يجب الإفصاح عنها؟</label>
-            <select name="hasMedical">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <div class="full">
-            <label>تفاصيل الحالة الصحية (إن وُجدت)</label>
-            <textarea name="medicalDetails"></textarea>
-          </div>
-
-          <div>
-            <label>هل تحتاج سكن طلابي/إقامة؟</label>
-            <select name="needsHousing">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <div>
-            <label>هل تتطلب حالة خاصة تسهيلات أثناء الامتحانات؟</label>
-            <select name="examAccommodations">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <!-- 10. الأمني والسلوكي -->
-          <div class="section-title">10. الحالة الأمنية والسلوكية</div>
-
-          <div>
-            <label>هل سبق أن تعرضت لإجراءات تأديبية أو إلغاء قبول بأي جامعة؟</label>
-            <select name="disciplinaryAction">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <div class="full">
-            <label>إن كانت الإجابة نعم، اذكر تفاصيل</label>
-            <textarea name="disciplinaryDetails"></textarea>
-          </div>
-
-          <div class="full">
-            <label>إقرار بحسن السيرة والسلوك (أكتب عبارة الموافقة هنا ليعتبر توقيع إلكتروني) <span style="color:#b91c1c">*</span></label>
-            <input name="conductDeclaration" required placeholder="أتعهد بأن جميع المعلومات صحيحة">
-          </div>
-
-          <!-- 11. التمويل والمنح -->
-          <div class="section-title">11. التمويل والمنح</div>
-
-          <div>
-            <label>هل ترغب بالتقديم على منحة / مساعدة مالية؟</label>
-            <select name="needsScholarship">
-              <option value="">اختر...</option>
-              <option value="no">لا</option>
-              <option value="yes">نعم</option>
-            </select>
-          </div>
-
-          <div>
-            <label>نوع التمويل المتوقع</label>
-            <input name="fundingType" placeholder="مثال: منحة داخلية / كفيل / ذاتي">
-          </div>
-
-          <div class="full">
-            <label>بيانات الحساب البنكي (إن طُلبت لاحقاً)</label>
-            <input name="bankDetails" placeholder="اسم البنك - رقم الحساب - اسم صاحب الحساب">
-          </div>
-
-          <!-- 12. بيانات الطوارئ -->
-          <div class="section-title">12. بيانات حالات الطوارئ</div>
-
-          <div>
-            <label>اسم جهة الاتصال في الطوارئ</label>
-            <input name="emergencyName">
-          </div>
-
-          <div>
-            <label>صلة القرابة</label>
-            <input name="emergencyRelation">
-          </div>
-
-          <div>
-            <label>هاتف جهة الاتصال في الطوارئ</label>
-            <input name="emergencyPhone">
-          </div>
-
-          <div class="full">
-            <label>عنوان جهة الاتصال في الطوارئ</label>
-            <input name="emergencyAddress">
-          </div>
-
-          <!-- 13. التواقيع والإقرارات -->
-          <div class="section-title">13. التواقيعات والإقرارات</div>
-
-          <div class="full note">
-            <strong>تنبيه:</strong> بتوقيعك أو إدخال اسمك أدناه توافق على صحة جميع البيانات المقدمة، وتُلزم الجامعة بالرجوع لك في حال الحاجة لمستندات أصلية. أي معلومات غير صحيحة قد تؤدي إلى رفض الطلب أو إلغائه.
-          </div>
-
-          <div>
-            <label>اسم مقدم الطلب (مطبوع) <span style="color:#b91c1c">*</span></label>
-            <input name="declarantName" required>
-          </div>
-
-          <div>
-            <label>تاريخ تقديم الطلب <span style="color:#b91c1c">*</span></label>
-            <input type="date" name="declarationDate" required>
-          </div>
-
-          <div class="full">
-            <label>التوقيع الإلكتروني (اكتب اسمك الكامل ليعد توقيع) <span style="color:#b91c1c">*</span></label>
-            <input name="electronicSignature" required placeholder="اكتب اسمك الكامل">
-          </div>
-
-          <!-- submission -->
-          <div class="full" style="display:flex;gap:8px;align-items:center;margin-top:12px">
+          <div class="full" style="display:flex;gap:8px;margin-top:12px">
             <button id="downloadJson" type="button" class="btn secondary" style="width:auto;padding:10px 12px">تحميل JSON</button>
-            <button id="submitBtn" type="submit" class="btn" style="flex:1">إرسال الطلب</button>
-            <button id="resetBtn" type="button" class="btn secondary" style="width:auto;padding:10px 12px">إعادة تعيين</button>
+            <button type="submit" class="btn" style="flex:1">إرسال الطلب</button>
+            <button id="resetBtn" type="button" class="btn secondary" style="width:auto;padding:10px 12px">إعادة</button>
           </div>
-
-          <div id="formMessage" class="full" aria-live="polite" style="margin-top:8px"></div>
-
+          <div id="formMessage" class="full" style="margin-top:8px"></div>
         </form>
       </div>
-
     </div>
   </div>
 
-<script>
-(function(){
-  const FORMCARRY = 'https://formcarry.com/s/ON8xkE-353d';
-  const newBtn = document.getElementById('newApplicantBtn');
-  const drawer = document.getElementById('appDrawer');
-  const appForm = document.getElementById('appForm');
-  const msg = document.getElementById('formMessage');
-  const downloadBtn = document.getElementById('downloadJson');
-  const resetBtn = document.getElementById('resetBtn');
+  <script>
+  (function(){
+    const newBtn=document.getElementById('newApplicantBtn');
+    const drawer=document.getElementById('appDrawer');
+    const form=document.getElementById('appForm');
+    const msg=document.getElementById('formMessage');
+    const resetBtn=document.getElementById('resetBtn');
+    const downloadBtn=document.getElementById('downloadJson');
 
-  function openDrawer(){
-    drawer.classList.add('open');
-    drawer.setAttribute('aria-hidden','false');
-    // ensure date default
-    const d = appForm.querySelector('[name="declarationDate"]');
-    if(d && !d.value) d.value = new Date().toISOString().slice(0,10);
-    newBtn.textContent = 'إغلاق النموذج';
-    drawer.scrollIntoView({behavior:'smooth', block:'nearest'});
-  }
-  function closeDrawer(){
-    drawer.classList.remove('open');
-    drawer.setAttribute('aria-hidden','true');
-    newBtn.textContent = 'تقديم طالب جديد';
-    msg.innerHTML = '';
-  }
+    newBtn.onclick=()=>drawer.classList.toggle('open');
 
-  newBtn.addEventListener('click', ()=> {
-    if(drawer.classList.contains('open')) closeDrawer(); else openDrawer();
-  });
+    resetBtn.onclick=()=>{if(confirm('هل تريد إعادة تعيين الحقول؟')) form.reset();};
 
-  // basic validation helpers
-  function looksFake(v){
-    if(!v) return true;
-    const s = String(v).trim().toLowerCase();
-    if(s.length <= 1) return true;
-    const bad = ['test','123','aaaa','abcd','مثال','نموذج','xxx','0000','000'];
-    if(bad.includes(s)) return true;
-    return false;
-  }
+    downloadBtn.onclick=()=>{
+      const data=Object.fromEntries(new FormData(form).entries());
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='application_shaqra.json';
+      a.click();URL.revokeObjectURL(a.href);
+    };
 
-  function validateAll(){
-    const errors = [];
-    // required text fields
-    const requiredNames = ['fullNameAr','fullNameEn','idType','idNumber','birthDate','gender','nationality','phone','email','lastQualification','issuingInstitution','degreeCountry','graduationYear','gpa','certificates','idAttachment','declarantName','declarationDate','electronicSignature','desiredProgram','studyType','conductDeclaration'];
-    requiredNames.forEach(name => {
-      const el = appForm.elements[name];
-      if(!el) return;
-      if(el.type === 'file'){
-        if(!el.files || el.files.length === 0) errors.push('حقل مطلوب مفقود: ' + name);
-      } else {
-        if(looksFake(el.value)) errors.push('الرجاء تعبئة قيمة صحيحة للحقل: ' + (el.previousElementSibling ? el.previousElementSibling.textContent.trim() : name));
-      }
-    });
-
-    // email format
-    const email = appForm.elements['email'];
-    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) errors.push('البريد الإلكتروني غير صحيح.');
-
-    // phone simple check
-    const phone = appForm.elements['phone'];
-    if(phone && !/^[+0-9\s\-]{7,15}$/.test(phone.value)) errors.push('رقم الجوال غير صحيح.');
-
-    // idNumber basic
-    const idnum = appForm.elements['idNumber'];
-    if(idnum && !/^[0-9A-Za-z\-]{5,30}$/.test(idnum.value)) errors.push('رقم الهوية/الإقامة/جواز يبدو غير صالح.');
-
-    // graduation year
-    const gy = appForm.elements['graduationYear'];
-    if(gy && (isNaN(Number(gy.value)) || Number(gy.value) < 1900 || Number(gy.value) > 2100)) errors.push('سنة التخرج غير صحيحة.');
-
-    return errors;
-  }
-
-  // download JSON
-  downloadBtn.addEventListener('click', ()=> {
-    const fd = new FormData(appForm);
-    const obj = {};
-    for(const [k,v] of fd.entries()){
-      if(obj[k] === undefined) obj[k] = v;
-      else {
-        if(!Array.isArray(obj[k])) obj[k] = [obj[k]];
-        obj[k].push(v);
-      }
-    }
-    // files metadata
-    ['certificates','idAttachment','photo','cv','publications','testsAttachments','otherDocs'].forEach(name=>{
-      obj[name] = [];
-      const inp = appForm.elements[name];
-      if(inp && inp.files){
-        for(let i=0;i<inp.files.length;i++){
-          const f = inp.files[i];
-          obj[name].push({name:f.name,size:f.size,type:f.type});
-        }
-      }
-    });
-    obj._meta = {applicationId: 'APP-'+Math.random().toString(36).slice(2,10).toUpperCase(), timestamp: new Date().toISOString()};
-    const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = (appForm.elements['fullNameAr'] && appForm.elements['fullNameAr'].value ? appForm.elements['fullNameAr'].value.replace(/\s+/g,'_') : 'application') + '_shaqra.json';
-    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
-  });
-
-  resetBtn.addEventListener('click', ()=>{
-    if(confirm('هل أنت متأكد من إعادة تعيين جميع الحقول؟')) appForm.reset();
-  });
-
-  // submit handler
-  appForm.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    msg.innerHTML = '';
-    const errs = validateAll();
-    if(errs.length){
-      msg.innerHTML = '<div class="error"><strong>يرجى تصحيح الأخطاء التالية:</strong><ul style="margin:6px 0 0 14px;padding:0">'+errs.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
-      drawer.scrollIntoView({behavior:'smooth', block:'nearest'});
-      return;
-    }
-
-    // prepare FormData to send (includes files)
-    const fd = new FormData(appForm);
-    fd.append('_meta_applicationId', 'APP-'+Math.random().toString(36).slice(2,10).toUpperCase());
-    fd.append('_meta_timestamp', new Date().toISOString());
-
-    msg.innerHTML = '<div class="small">جاري إرسال البيانات... Sending...</div>';
-
-    try {
-      const res = await fetch(FORMCARRY, {method:'POST', body: fd, headers: {'Accept': 'application/json'}});
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      // success
-      msg.innerHTML = '<div class="success">تم إرسال الطلب بنجاح. Application submitted successfully.</div>';
-      setTimeout(()=>{ appForm.reset(); closeDrawer(); }, 900);
-    } catch (err){
-      console.error(err);
-      msg.innerHTML = '<div class="error">فشل الإرسال. حاول مرة أخرى لاحقاً.</div>';
-    }
-  });
-
-  // close drawer on Esc
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && drawer.classList.contains('open')) { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); newBtn.textContent='تقديم طالب جديد'; } });
-
-  // initialize closed
-  drawer.classList.remove('open');
-})();
-</script>
+    form.onsubmit=(e)=>{
+      e.preventDefault();
+      msg.innerHTML='<div class="success">✅ تم إرسال الطلب بنجاح!</div>';
+      setTimeout(()=>{form.reset();drawer.classList.remove('open');},1200);
+    };
+  })();
+  </script>
 </body>
-                </html>
+</html>
 </body>
 </html>
 
