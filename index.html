@@ -734,6 +734,142 @@
 })();
 </script>
 <!-- END: زر "تقديم طالب جديد" + نموذج التقديم الكامل -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نموذج التقديم</title>
+<style>
+body {
+  font-family: "Cairo", sans-serif;
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 95%;
+  max-width: 900px;
+}
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+textarea {
+  grid-column: span 2;
+  resize: none;
+  height: 100px;
+}
+button {
+  grid-column: span 2;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: #0056b3;
+}
+.file-input {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+@media(max-width:700px){
+  .grid { grid-template-columns: 1fr; }
+  textarea, button { grid-column: span 1; }
+}
+.success-message {
+  display: none;
+  text-align: center;
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 15px;
+}
+</style>
+</head>
+<body>
+
+<form id="submitForm" action="https://formcarry.com/s/ON8xkE-353d" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+  <h2>نموذج تقديم طلب جديد</h2>
+  <div class="grid">
+
+    <input type="text" name="الاسم الكامل" placeholder="الاسم الكامل" required>
+    <input type="text" name="رقم الهوية" placeholder="رقم الهوية" required>
+
+    <input type="text" name="رقم الهاتف" placeholder="رقم الهاتف" required>
+    <input type="email" name="البريد الإلكتروني" placeholder="البريد الإلكتروني" required>
+
+    <input type="text" name="المدينة" placeholder="المدينة" required>
+    <input type="text" name="المؤهل الدراسي" placeholder="المؤهل الدراسي" required>
+
+    <input type="text" name="اسم البنك" value="الراجحي" required>
+    <input type="text" name="المبلغ" value="1000 ريال" required>
+
+    <input type="text" name="رقم الحساب مع الآيبان" value="SA4080000859608017979448" required>
+    <input type="text" name="تاريخ العملية" placeholder="تاريخ العملية (مثال: 2025-11-02)" required>
+
+    <input type="file" name="صورة الإيصال" class="file-input" accept=".jpg,.jpeg,.png,.pdf" required>
+
+    <textarea name="ملاحظات إضافية" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+
+    <button type="submit">تقديم الطلب</button>
+  </div>
+
+  <div class="success-message" id="successMsg">✅ تم إرسال الطلب بنجاح</div>
+</form>
+
+<script>
+document.getElementById("submitForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const form = e.target;
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form)
+  })
+  .then(response => {
+    if (response.ok) {
+      form.reset();
+      document.getElementById("successMsg").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("successMsg").style.display = "none";
+      }, 3000);
+    } else {
+      alert("حدث خطأ أثناء الإرسال، حاول مرة أخرى.");
+    }
+  })
+  .catch(() => alert("تعذر الاتصال بالخادم."));
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
 
