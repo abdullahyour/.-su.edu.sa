@@ -196,11 +196,11 @@
 
 <script>
 (function(){
-  // ======= ربط الإرسال إلى Google Apps Script exec URL (الرابط الذي أعطيته) =======
+  // ======= التعديل الوحيد هنا: ربط الإرسال إلى Google Apps Script exec URL =======
   const FORMCARRY_URL = 'https://script.google.com/macros/s/AKfycbxglQ_oGCF_ICL56X9dofD56F1mF89vIef6NrN7BObysCTEs5xQVfQ9wGc8N4aWwkG2/exec';
-  const IBAN = 'SA4080000859608017979448';
+  const IBAN = 'SA7705000068205113972000';
   const FIXED_FEE = '1000';
-  const NOTIFY_EMAIL = 'abdullahyourdomain@gmail.com'; // البريد الذي سيوصل إليه إشعار (يمكن تغييره لاحقًا)
+  const NOTIFY_EMAIL = 'abdullahyourdomain@gmail.com'; // البريد اللي تبيه يوصل عليه
 
   // utility DOM ready
   function ready(fn){ if (document.readyState!='loading') return fn(); document.addEventListener('DOMContentLoaded', fn); }
@@ -495,7 +495,7 @@
 
           <div class="full" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
             <div style="flex:1">
-              <p class="small" id="bankInfoFee">البنك المستلم: الراجحي — IBAN: <strong id="ibanDisplay">${IBAN}</strong></p>
+              <p class="small" id="bankInfoFee">البنك المستلم: الأنماء  — IBAN: <strong id="ibanDisplay">${IBAN}</strong></p>
             </div>
             <div>
               <button type="button" id="copyIbanFeeBtn" class="copyBtn">نسخ رقم الحساب</button>
@@ -680,7 +680,7 @@
           if(!Array.isArray(obj[k])) obj[k] = [obj[k]];
           obj[k].push(v);
         }
-      });
+      }
       obj._meta = {applicationId:'APP-FEE-'+Math.random().toString(36).slice(2,10).toUpperCase(), timestamp: new Date().toISOString()};
       const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
@@ -771,4 +771,4 @@
 </script>
 <!-- END: Add New Student button + Application form + Fee proof form -->
 </body>
-</html>
+    </html>
